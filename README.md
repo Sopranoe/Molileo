@@ -5,7 +5,7 @@
 ## Betroffene
 
 * Volkskrankheit (Fünfthäufigster Krebs in Deutschland, 20.000 Neuerkrankungen jährlich)
-* Berufe mit erhöhtem Risiko [[1]][1]:
+* Berufe mit erhöhtem Risiko [[1]]:
     * __Baubranche__ (Kanalbauer, Dach- und Fassadenbauer, Zimmerer, Straßenbauer, Betonbauer, Dachdecker, ...)
     * __Landwirtschaft__ (Obst- und Gemüsegärtner, Winzer, Gärtner, Fischer, ...)
     * __Rohstoffgewinnung__ (Steinbrecher, Anlagenbediener, Schlosser, ...)
@@ -53,7 +53,7 @@
 
 * Medizinproduktegesetz
 
-## Medizinischer Hintergrund [[4]][4]
+## Medizinischer Hintergrund [[4]]
 
 * Risiken:
     * UV-Exposition
@@ -67,14 +67,14 @@
     * 2/3 auf zuvor gesunder Haut (de novo)
     * 1/3 aus vorhandenen Hautveränderungen
         
-* Erkennung: ABCDE-Regel [[2]][2]
+* Erkennung: ABCDE-Regel [[2]]
     * Asymmetrie
     * Begrenzung
     * Color
     * Durchmesser
     * Erhabenheit   
-    * "Außerdem sind Farbveränderungen (F), Größenzunahme (G), Blutungen (Hämorrhagien: H) und Juckreiz (J) verdächtige Zeichen, die eine Abklärung beim Hautarzt oder in einer Hautklinik notwendig machen." [[3]][3]
-    * "ugly duckling sign" [[3]][3]
+    * "Außerdem sind Farbveränderungen (F), Größenzunahme (G), Blutungen (Hämorrhagien: H) und Juckreiz (J) verdächtige Zeichen, die eine Abklärung beim Hautarzt oder in einer Hautklinik notwendig machen." [[3]]
+    * "ugly duckling sign" [[3]]
 
 ## Offene Fragen
 
