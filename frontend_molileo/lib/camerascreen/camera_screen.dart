@@ -101,7 +101,7 @@ class _CameraScreenState extends State {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Click To Share'),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blue,
       ),
       body: Container(
         child: SafeArea(
@@ -110,9 +110,10 @@ class _CameraScreenState extends State {
             children: <Widget>[
               SizedBox(height: 30.0),
               Expanded(
+                flex: 1,
                 child: _cameraPreviewWidget(),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 40.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

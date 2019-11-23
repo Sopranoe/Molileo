@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'camerascreen/camera_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -98,6 +99,15 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
+            RaisedButton(
+              child: Text('Create new Mole'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CameraScreen()),
+                );
+              },
+            )
           ],
         ),
       ),

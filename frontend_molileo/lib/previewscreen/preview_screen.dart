@@ -49,7 +49,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Preview'),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blue,
       ),
       body: Center(
         child: Column(
