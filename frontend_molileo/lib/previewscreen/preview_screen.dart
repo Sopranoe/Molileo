@@ -29,10 +29,8 @@
  */
 
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+import 'package:frontend_molileo/resultscreen/result_screen.dart';
 
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
@@ -47,42 +45,72 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Preview'),
-        backgroundColor: Colors.blue,
+      appBar: new AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        title: const Text('Molileo',
+            style: TextStyle(color: Colors.black, fontSize: 25.0)),
+        centerTitle: true,
+        backgroundColor: Colors.grey[100],
       ),
-      body: Center(
+      body: Container(
+        padding: const EdgeInsets.all(10.0),
+        margin: const EdgeInsets.all(10.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SizedBox(height: 30.0),
             Expanded(
-                flex: 2,
                 child: Image.file(File(widget.imagePath), fit: BoxFit.cover)),
-            SizedBox(height: 10.0),
-            Flexible(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.all(60.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    getBytesFromFile().then((bytes) {
-                      Share.file('Share via:', basename(widget.imagePath),
-                          bytes.buffer.asUint8List(), 'image/png');
-                    });
-                  },
-                  child: Text('Share'),
+            SizedBox(height: 40.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 70.0,
+                  height: 70.0,
+                  child: FloatingActionButton(
+                    heroTag: 'clear',
+                    child: Icon(
+                      Icons.clear,
+                      color: Colors.red,
+                      size: 40.0,
+                    ),
+                    backgroundColor: Colors.grey[400],
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
-              ),
+                SizedBox(
+                  width: 50.0,
+                ),
+                SizedBox(
+                  width: 70.0,
+                  height: 70.0,
+                  child: FloatingActionButton(
+                    heroTag: 'check',
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.green,
+                      size: 40.0,
+                    ),
+                    backgroundColor: Colors.grey[400],
+                    onPressed: () {
+                      _accept(context, widget.imagePath);
+                    },
+                  ),
+                ),
+              ],
             ),
+            SizedBox(height: 100.0)
           ],
         ),
       ),
     );
   }
 
-  Future<ByteData> getBytesFromFile() async {
-    Uint8List bytes = File(widget.imagePath).readAsBytesSync() as Uint8List;
-    return ByteData.view(bytes.buffer);
+  void _accept(context, String path) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ResultImageScreen(imagePath: path)));
   }
 }

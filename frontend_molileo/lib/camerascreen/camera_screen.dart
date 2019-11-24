@@ -99,32 +99,31 @@ class _CameraScreenState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Click To Share'),
-        backgroundColor: Colors.blue,
+      appBar: new AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        title: const Text('Molileo',
+            style: TextStyle(color: Colors.black, fontSize: 25.0)),
+        centerTitle: true,
+        backgroundColor: Colors.grey[100],
       ),
       body: Container(
-        child: SafeArea(
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              SizedBox(height: 30.0),
-              Expanded(
-                flex: 1,
-                child: _cameraPreviewWidget(),
-              ),
-              SizedBox(height: 40.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  _cameraTogglesRowWidget(),
-                  _captureControlRowWidget(context),
-                  Spacer()
-                ],
-              ),
-              SizedBox(height: 30.0)
-            ],
-          ),
+        padding: const EdgeInsets.all(10.0),
+        margin: const EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: _cameraPreviewWidget(),
+            ),
+            SizedBox(height: 40.0),
+            Row(
+              children: [
+                _cameraTogglesRowWidget(),
+                _captureControlRowWidget(context),
+                Spacer()
+              ],
+            ),
+            SizedBox(height: 100.0)
+          ],
         ),
       ),
     );
@@ -158,12 +157,18 @@ class _CameraScreenState extends State {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
           children: [
-            FloatingActionButton(
-                child: Icon(Icons.camera),
-                backgroundColor: Colors.blueGrey,
-                onPressed: () {
-                  _onCapturePressed(context);
-                })
+            SizedBox(
+                width: 70.0,
+                height: 70.0,
+                child: FloatingActionButton(
+                    child: Icon(
+                      Icons.camera_alt,
+                      size: 40.0,
+                    ),
+                    backgroundColor: Colors.grey[400],
+                    onPressed: () {
+                      _onCapturePressed(context);
+                    }))
           ],
         ),
       ),
