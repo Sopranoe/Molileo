@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class ResultImageScreen extends StatefulWidget {
   final String imagePath;
@@ -11,8 +12,15 @@ class ResultImageScreen extends StatefulWidget {
 }
 
 class _ResultImageScreenState extends State<ResultImageScreen> {
-  String lowRisk =
-      'Our analysis resulted in a potentially low risk of skin cancer from this mole for further changes you can add it to the history overview and track its changes';
+  String riskTitle;
+  String riskText;
+  Color riskColor;
+
+  void initState() {
+    super.initState();
+    this._setRisk();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,20 +53,20 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
                             width: 20.0,
                             height: 20.0,
                             child: FloatingActionButton(
-                              backgroundColor: Colors.lightGreen,
+                              backgroundColor: this.riskColor,
                               onPressed: () {},
                             ),
                           ),
                           SizedBox(width: 10.0),
                           Text(
-                            'Low Risk',
+                            this.riskTitle,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20.0),
                           ),
                         ],
                       ),
                       SizedBox(height: 10.0),
-                      Text(this.lowRisk, style: TextStyle(fontSize: 15.0))
+                      Text(this.riskText, style: TextStyle(fontSize: 15.0))
                     ]),
                   ],
                 ),
@@ -89,5 +97,39 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
         ),
       ),
     );
+  }
+
+  void _setRisk() {
+    final _random = new Random();
+    int min = 1;
+    int max = 4;
+    int r = min + _random.nextInt(max - min);
+    switch (r) {
+      case 1:
+        this.riskColor = Colors.lightGreen;
+        this.riskTitle = 'Low Risk';
+        this.riskText =
+            'Our analysis resulted in a potentially low risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        break;
+      case 2:
+        this.riskColor = Colors.yellow;
+        this.riskTitle = 'Potential Risk';
+        this.riskText =
+            'Our analysis resulted in a potential risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        break;
+      case 3:
+        this.riskColor = Colors.orange;
+        this.riskTitle = 'High Risk';
+        this.riskText =
+            'Our analysis resulted in a potentially high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        break;
+      case 4:
+        this.riskColor = Colors.red;
+        this.riskTitle = 'Very high Risk';
+        this.riskText =
+            'Our analysis resulted in a potentially very high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        break;
+      default:
+    }
   }
 }
