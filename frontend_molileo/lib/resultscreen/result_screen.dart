@@ -102,7 +102,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
   void _resolveRisk() {
     final _random = new Random();
     int min = 1;
-    int max = 4;
+    int max = 5;
     int r = min + _random.nextInt(max - min);
     switch (r) {
       case 1:
