@@ -18,7 +18,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
 
   void initState() {
     super.initState();
-    this._setRisk();
+    this._resolveRisk();
   }
 
   @override
@@ -99,7 +99,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
     );
   }
 
-  void _setRisk() {
+  void _resolveRisk() {
     final _random = new Random();
     int min = 1;
     int max = 4;
@@ -129,7 +129,6 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
         this.riskText =
             'Our analysis resulted in a potentially very high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
         break;
-      default:
     }
   }
 }
