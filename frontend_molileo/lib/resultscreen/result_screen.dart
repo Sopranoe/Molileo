@@ -103,8 +103,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
     final _random = new Random();
     int min = 1;
     int max = 5;
-    int r = min + _random.nextInt(max - min);
-    switch (r) {
+    switch (min + _random.nextInt(max - min)) {
       case 1:
         this.riskColor = Colors.lightGreen;
         this.riskTitle = 'Low Risk';
