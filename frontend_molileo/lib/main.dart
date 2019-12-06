@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Molileo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Raleway',
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
