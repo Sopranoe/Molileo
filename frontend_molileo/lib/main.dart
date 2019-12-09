@@ -35,63 +35,80 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: new Text('Molileo', style: new TextStyle(fontSize: 30.0)),
+              child: new Text('Molileo',
+                  style: new TextStyle(
+                      fontSize: 36.0, fontWeight: FontWeight.bold)),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: new Text(
                   'You can start right away by analyzing a mole or create a profile first.',
-                  style: new TextStyle(fontSize: 16.0)),
+                  style: new TextStyle(fontSize: 20.0),
+                  textAlign: TextAlign.center),
             ),
+            SizedBox(height: 80.0),
             new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text('Check mole'),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CameraScreen()),
-                        );
-                      },
+                    ButtonTheme(
+                      minWidth: 160.0,
+                      height: 70.0,
+                      child: RaisedButton(
+                        child: new Text('Check mole'),
+                        padding: const EdgeInsets.all(10.0),
+                        textColor: Colors.white,
+                        color: Colors.blue,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CameraScreen()),
+                          );
+                        },
+                      ),
                     ),
-                    RaisedButton(
-                      child: Text('Profile'),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CameraScreen()),
-                        );
-                      },
+                    SizedBox(height: 10),
+                    ButtonTheme(
+                      minWidth: 160.0,
+                      height: 70.0,
+                      child: RaisedButton(
+                        child: new Text('Profile'),
+                        padding: const EdgeInsets.all(10.0),
+                        textColor: Colors.white,
+                        color: Colors.blue,
+                        onPressed: () {},
+                      ),
                     ),
                   ],
                 ),
                 new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text('Overview'),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CameraScreen()),
-                        );
-                      },
+                    ButtonTheme(
+                      minWidth: 160.0,
+                      height: 70.0,
+                      child: RaisedButton(
+                        child: new Text('Overview'),
+                        padding: const EdgeInsets.all(10.0),
+                        textColor: Colors.white,
+                        color: Colors.blue,
+                        onPressed: () {},
+                      ),
                     ),
-                    RaisedButton(
-                      child: Text('Information'),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CameraScreen()),
-                        );
-                      },
+                    SizedBox(height: 10),
+                    ButtonTheme(
+                      minWidth: 160.0,
+                      height: 70.0,
+                      child: RaisedButton(
+                        child: new Text('Information'),
+                        padding: const EdgeInsets.all(10.0),
+                        textColor: Colors.white,
+                        color: Colors.blue,
+                        onPressed: () {},
+                      ),
                     )
                   ],
                 ),
