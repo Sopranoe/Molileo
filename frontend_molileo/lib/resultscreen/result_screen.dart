@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:frontend_molileo/resultscreen/menuConstants.dart';
+
 class ResultImageScreen extends StatefulWidget {
   final String imagePath;
 
@@ -79,15 +81,26 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
                 child: Container(
                   child: Align(
                     alignment: Alignment.bottomRight,
-                    child: FloatingActionButton(
-                      heroTag: 'save',
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.grey[400],
-                        // size: 50.0,
+                    child: PopupMenuButton<String>(
+                      onSelected: choiceActions,
+                      itemBuilder: (BuildContext context) {
+                        return MenuConstants.menuChoices.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList();
+                      },
+                      child: Container(
+                        height: 54,
+                        width: 54,
+                        decoration: ShapeDecoration(
+                          shape: StadiumBorder(
+                            side: BorderSide(color: Colors.grey, width: 2),
+                          ),
+                        ),
+                        child: Icon(Icons.add),
                       ),
-                      backgroundColor: Colors.grey[50],
-                      onPressed: () {},
                     ),
                   ),
                 ),
@@ -128,6 +141,14 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
         this.riskText =
             'Our analysis resulted in a potentially very high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
         break;
+    }
+  }
+
+  void choiceActions(String choice) {
+    if(choice == MenuConstants.CreateMole){
+      print("Create");
+    }else if(choice == MenuConstants.AddMole){
+      print("Add");
     }
   }
 }
