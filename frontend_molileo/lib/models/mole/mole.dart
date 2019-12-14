@@ -1,6 +1,3 @@
-import 'package:frontend_molileo/models/mole/mole-location.dart';
-import 'package:frontend_molileo/models/mole/risk-status.dart';
-
 class Mole {
   final String id;
   final String name;

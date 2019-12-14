@@ -4,8 +4,6 @@ import 'package:frontend_molileo/addmolescreen/add_mole_screen.dart';
 import 'package:frontend_molileo/models/mole/mole-location.dart';
 import 'package:frontend_molileo/models/mole/mole.dart';
 import 'dart:math';
-import 'package:frontend_molileo/models/mole/mole-location.dart';
-import 'package:frontend_molileo/models/mole/risk-status.dart';
 import 'package:frontend_molileo/models/mole/risk-status.dart';
 import 'package:frontend_molileo/resultscreen/menuConstants.dart';
 import 'package:uuid/uuid.dart';
@@ -163,7 +161,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
               builder: (context) => AddMoleScreen(
                   newMole: new Mole(
                       uuid.v1(),
-                      'Mole1',
+                      new DateTime.now().toString().substring(0, 10),
                       widget.imagePath,
                       new DateTime.now(),
                       MoleLocationHelper.getValue(MoleLocation.rightArm),
