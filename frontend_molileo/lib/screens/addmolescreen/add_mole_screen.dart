@@ -48,7 +48,7 @@ class _AddMoleScreenState extends State<AddMoleScreen> {
                     )),
                 Text(
                   widget.newMole.name + ', $index',
-                  style: TextStyle(fontSize: 8.5, color: Colors.black),
+                  style: TextStyle(fontSize: 11.0, color: Colors.black),
                 ),
               ],
             ));
