@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:frontend_molileo/detailscreen/detailscreen.dart';
 import 'dart:math';
 
 import 'package:frontend_molileo/resultscreen/menuConstants.dart';
@@ -146,7 +147,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
 
   void choiceActions(String choice) {
     if(choice == MenuConstants.CreateMole){
-      print("Create");
+      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen()));
     }else if(choice == MenuConstants.AddMole){
       print("Add");
     }
