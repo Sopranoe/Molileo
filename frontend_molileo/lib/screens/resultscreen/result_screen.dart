@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:frontend_molileo/addmolescreen/add_mole_screen.dart';
-import 'package:frontend_molileo/models/mole/mole-location.dart';
-import 'package:frontend_molileo/models/mole/mole.dart';
+import 'package:frontend_molileo/screens/addmolescreen/add_mole_screen.dart';
+import 'package:frontend_molileo/models/mole-location.dart';
+import 'package:frontend_molileo/models/mole.dart';
+import 'package:frontend_molileo/screens/detailscreen/detailscreen.dart';
 import 'dart:math';
-import 'package:frontend_molileo/models/mole/risk-status.dart';
-import 'package:frontend_molileo/resultscreen/menuConstants.dart';
+import 'package:frontend_molileo/models/risk-status.dart';
+import 'package:frontend_molileo/screens/resultscreen/menuConstants.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = Uuid();
@@ -152,7 +153,8 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
 
   void choiceActions(String choice) {
     if (choice == MenuConstants.CreateMole) {
-      print("Create");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => DetailScreen()));
     } else if (choice == MenuConstants.AddMole) {
       print("Add");
       Navigator.push(

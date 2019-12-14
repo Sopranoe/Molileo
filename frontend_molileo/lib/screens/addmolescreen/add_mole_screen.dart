@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:frontend_molileo/models/mole/mole.dart';
+import 'package:frontend_molileo/models/mole.dart';
 
 class AddMoleScreen extends StatefulWidget {
   final Mole newMole;
