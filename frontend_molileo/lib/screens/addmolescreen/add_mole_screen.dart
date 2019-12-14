@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:frontend_molileo/models/mole.dart';
+import 'package:frontend_molileo/screens/addmolescreen/mole_history_screen.dart';
 
 class AddMoleScreen extends StatefulWidget {
   final Mole newMole;
@@ -47,7 +48,7 @@ class _AddMoleScreenState extends State<AddMoleScreen> {
                       fit: BoxFit.scaleDown,
                     )),
                 Text(
-                  widget.newMole.name + ', $index',
+                  'Mole ' + widget.newMole.moleLocation,
                   style: TextStyle(fontSize: 11.0, color: Colors.black),
                 ),
               ],
@@ -62,5 +63,11 @@ class _AddMoleScreenState extends State<AddMoleScreen> {
 
   click(i) {
     print("next... " + i.toString());
+    List<Mole> ml = [];
+    ml.add(widget.newMole);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MoleHistory(moleHistoryList: ml)));
   }
 }
