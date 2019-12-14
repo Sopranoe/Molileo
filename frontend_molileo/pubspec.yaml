@@ -26,6 +26,7 @@ dependencies:
   camera: ^0.4.2
   path_provider: ^1.1.0
   path: ^1.6.2
+  uuid: 2.0.4
   esys_flutter_share: ^1.0.2
 dev_dependencies:
   flutter_test:

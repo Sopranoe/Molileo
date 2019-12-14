@@ -1,8 +1,16 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:frontend_molileo/addmolescreen/add_mole_screen.dart';
+import 'package:frontend_molileo/models/mole/mole-location.dart';
+import 'package:frontend_molileo/models/mole/mole.dart';
 import 'dart:math';
-
+import 'package:frontend_molileo/models/mole/mole-location.dart';
+import 'package:frontend_molileo/models/mole/risk-status.dart';
+import 'package:frontend_molileo/models/mole/risk-status.dart';
 import 'package:frontend_molileo/resultscreen/menuConstants.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = Uuid();
 
 class ResultImageScreen extends StatefulWidget {
   final String imagePath;
@@ -145,10 +153,21 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
   }
 
   void choiceActions(String choice) {
-    if(choice == MenuConstants.CreateMole){
+    if (choice == MenuConstants.CreateMole) {
       print("Create");
-    }else if(choice == MenuConstants.AddMole){
+    } else if (choice == MenuConstants.AddMole) {
       print("Add");
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AddMoleScreen(
+                  newMole: new Mole(
+                      uuid.v1(),
+                      'Mole1',
+                      widget.imagePath,
+                      new DateTime.now(),
+                      MoleLocationHelper.getValue(MoleLocation.rightArm),
+                      RiskStatusHelper.getValue(RiskStatus.lowRisk)))));
     }
   }
 }
