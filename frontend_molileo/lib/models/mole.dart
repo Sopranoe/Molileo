@@ -2,7 +2,8 @@ class Mole {
   final String id;
   final String name;
   final String imagePath;
-  final DateTime date;
+  final String date;
+  // final DateTime date;
   final String moleLocation;
   final String riskStatus;
 

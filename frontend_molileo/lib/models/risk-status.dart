@@ -10,7 +10,7 @@ class RiskStatusHelper {
       case RiskStatus.highRisk:
         return "High risk";
       case RiskStatus.veryHighRisk:
-        return "very high risk";
+        return "Very high risk";
       default:
         return "";
     }

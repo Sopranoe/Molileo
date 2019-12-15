@@ -32,15 +32,15 @@ class _MoleHistoryState extends State<MoleHistory> {
           padding: const EdgeInsets.all(20),
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 8.0 / 12.0,
+          childAspectRatio: 8.0 / 9.0,
           crossAxisCount: 3,
           // Generate 100 widgets that display their index in the List.
-          children: List.generate(100, (index) {
+          children: List.generate(widget.moleHistoryList.length, (index) {
             return Center(
                 child: Column(
               children: <Widget>[
-                Image.file(
-                  File(widget.moleHistoryList[0].imagePath),
+                Image(
+                  image: AssetImage(widget.moleHistoryList[index].imagePath),
                   fit: BoxFit.scaleDown,
                 ),
                 SizedBox(height: 1.0),
@@ -51,14 +51,14 @@ class _MoleHistoryState extends State<MoleHistory> {
                       height: 15.0,
                       child: FloatingActionButton(
                         heroTag: index.toString(),
-                        backgroundColor: this
-                            .getRiskColor(widget.moleHistoryList[0].riskStatus),
+                        backgroundColor: this.getRiskColor(
+                            widget.moleHistoryList[index].riskStatus),
                         onPressed: () {},
                       ),
                     ),
                     SizedBox(width: 5),
                     Text(
-                      widget.moleHistoryList[0].name + ', $index',
+                      widget.moleHistoryList[index].name + ', $index',
                       style: TextStyle(fontSize: 10.0, color: Colors.black),
                     ),
                   ],

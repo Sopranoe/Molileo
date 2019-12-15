@@ -165,7 +165,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
                       uuid.v1(),
                       new DateTime.now().toString().substring(0, 10),
                       widget.imagePath,
-                      new DateTime.now(),
+                      new DateTime.now().toString(),
                       MoleLocationHelper.getValue(MoleLocation.rightArm),
                       RiskStatusHelper.getValue(RiskStatus.lowRisk)))));
     }

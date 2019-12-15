@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:frontend_molileo/models/mole.dart';
 import 'package:frontend_molileo/screens/addmolescreen/mole_history_screen.dart';
+import 'package:frontend_molileo/mockdata.dart';
 
 class AddMoleScreen extends StatefulWidget {
   final Mole newMole;
@@ -33,22 +34,23 @@ class _AddMoleScreenState extends State<AddMoleScreen> {
           padding: const EdgeInsets.all(20),
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 8.0 / 12.0,
+          childAspectRatio: 8.0 / 9.0,
           crossAxisCount: 3,
           // Generate 100 widgets that display their index in the List.
-          children: List.generate(100, (index) {
+          children: List.generate(data.length, (index) {
             return Center(
                 child: Column(
               children: <Widget>[
                 new InkResponse(
                     enableFeedback: true,
                     onTap: () => click(index),
-                    child: Image.file(
-                      File(widget.newMole.imagePath),
+                    child: Image(
+                      image:
+                          AssetImage(Mole.fromJson(data[index][0]).imagePath),
                       fit: BoxFit.scaleDown,
                     )),
                 Text(
-                  'Mole ' + widget.newMole.moleLocation,
+                  'Mole ' + Mole.fromJson(data[index][0]).moleLocation,
                   style: TextStyle(fontSize: 11.0, color: Colors.black),
                 ),
               ],
@@ -64,7 +66,11 @@ class _AddMoleScreenState extends State<AddMoleScreen> {
   click(i) {
     print("next... " + i.toString());
     List<Mole> ml = [];
-    ml.add(widget.newMole);
+    for (var m in data[i]) {
+      ml.add(Mole.fromJson(m));
+    }
+
+    ml.add(ml[ml.length - 1]);
     Navigator.push(
         context,
         MaterialPageRoute(
