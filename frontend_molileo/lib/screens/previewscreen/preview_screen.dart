@@ -30,7 +30,7 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:frontend_molileo/resultscreen/result_screen.dart';
+import 'package:frontend_molileo/screens/resultscreen/result_screen.dart';
 
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
