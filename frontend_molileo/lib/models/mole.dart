@@ -1,29 +1,23 @@
+import 'package:frontend_molileo/models/mole-detail.dart';
+
 class Mole {
   final String id;
   final String name;
-  final String imagePath;
-  final String date;
-  // final DateTime date;
+  List<MoleDetail> moleDetails;
   final String moleLocation;
-  final String riskStatus;
 
-  Mole(this.id, this.name, this.imagePath, this.date, this.moleLocation,
-      this.riskStatus);
+  Mole(this.id, this.name, this.moleLocation);
 
   Mole.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
-        imagePath = json['imagePath'],
-        date = json['date'],
-        moleLocation = json['moleLocation'],
-        riskStatus = json['riskStatus'];
+        moleDetails = json['moleDetails'],
+        moleLocation = json['moleLocation'];
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'imagePath': imagePath,
-        'date': date,
-        'moleLocation': moleLocation,
-        'riskStatus': riskStatus
+        'moleDetails': moleDetails,
+        'moleLocation': moleLocation
       };
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'screens/camerascreen/camera_screen.dart';
+import 'package:frontend_molileo/screens/result_screen.dart';
+import 'models/mole.dart';
+import 'screens/mole_overview_screen.dart';
+import 'screens/camera_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -95,7 +98,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.all(10.0),
                         textColor: Colors.white,
                         color: Colors.blue,
-                        onPressed: () {},
+                        onPressed: () {
+                          print("Add");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MoleOverviewScreen()));
+                        },
                       ),
                     ),
                     SizedBox(height: 10),

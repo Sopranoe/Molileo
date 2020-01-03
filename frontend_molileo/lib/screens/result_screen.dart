@@ -1,15 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:frontend_molileo/screens/addmolescreen/add_mole_screen.dart';
+import 'package:frontend_molileo/models/mole-detail.dart';
 import 'package:frontend_molileo/models/mole-location.dart';
 import 'package:frontend_molileo/models/mole.dart';
-import 'package:frontend_molileo/screens/detailscreen/detailscreen.dart';
+import 'package:frontend_molileo/screens/detailscreen.dart';
 import 'dart:math';
 import 'package:frontend_molileo/models/risk-status.dart';
-import 'package:frontend_molileo/screens/resultscreen/menuConstants.dart';
-import 'package:uuid/uuid.dart';
+import 'package:frontend_molileo/screens/menuConstants.dart';
 
-var uuid = Uuid();
+import 'mole_overview_screen.dart';
 
 class ResultImageScreen extends StatefulWidget {
   final String imagePath;
@@ -24,6 +23,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
   String riskTitle;
   String riskText;
   Color riskColor;
+  RiskStatus risk;
 
   void initState() {
     super.initState();
@@ -129,45 +129,48 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
         this.riskTitle = 'Low Risk';
         this.riskText =
             'Our analysis resulted in a potentially low risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        this.risk = RiskStatus.lowRisk;
         break;
       case 2:
-        this.riskColor = Colors.yellow;
+        this.riskColor = Colors.amberAccent[200];
         this.riskTitle = 'Potential Risk';
         this.riskText =
             'Our analysis resulted in a potential risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        this.risk = RiskStatus.potentialRisk;
         break;
       case 3:
         this.riskColor = Colors.orange;
         this.riskTitle = 'High Risk';
         this.riskText =
             'Our analysis resulted in a potentially high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        this.risk = RiskStatus.highRisk;
         break;
       case 4:
         this.riskColor = Colors.red;
         this.riskTitle = 'Very high Risk';
         this.riskText =
             'Our analysis resulted in a potentially very high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        this.risk = RiskStatus.veryHighRisk;
         break;
     }
   }
 
   void choiceActions(String choice) {
+    MoleDetail newMoleDetail = new MoleDetail(new DateTime.now().toString(),
+        widget.imagePath, RiskStatusHelper.getValue(this.risk));
+
     if (choice == MenuConstants.CreateMole) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => DetailScreen()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailScreen(moleDetail: newMoleDetail)));
     } else if (choice == MenuConstants.AddMole) {
       print("Add");
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => AddMoleScreen(
-                  newMole: new Mole(
-                      uuid.v1(),
-                      new DateTime.now().toString().substring(0, 10),
-                      widget.imagePath,
-                      new DateTime.now().toString(),
-                      MoleLocationHelper.getValue(MoleLocation.rightArm),
-                      RiskStatusHelper.getValue(RiskStatus.lowRisk)))));
+            builder: (context) => MoleOverviewScreen(moleDetail: newMoleDetail),
+          ));
     }
   }
 }

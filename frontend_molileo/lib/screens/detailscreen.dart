@@ -1,57 +1,81 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_molileo/models/mole-detail.dart';
+import 'package:frontend_molileo/models/mole-location.dart';
+import 'package:frontend_molileo/models/mole.dart';
+import 'package:frontend_molileo/models/risk-status.dart';
+import 'package:frontend_molileo/screens/mole_history_screen.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = Uuid();
 
 class DetailScreen extends StatefulWidget {
+  final MoleDetail moleDetail;
+
+  DetailScreen({this.moleDetail});
+
   DetailScreenState createState() => new DetailScreenState();
 }
 
 class DetailScreenState extends State<DetailScreen> {
-  int _selectedLocation = 0;
+  Color riskColor;
+  final myController = TextEditingController();
+  MoleLocation _selectedLocation;
 
-  List<DropdownMenuItem<int>> locationList = [];
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
+  List<DropdownMenuItem<MoleLocation>> locationList = [];
 
   void loadLocationList() {
     locationList = [];
     locationList.add(new DropdownMenuItem(
-      child: new Text('Left arm'),
-      value: 0,
+      child: new Text(MoleLocationHelper.getValue(MoleLocation.leftArm)),
+      value: MoleLocation.leftArm,
     ));
     locationList.add(new DropdownMenuItem(
-      child: new Text('Right arm'),
-      value: 1,
+      child: new Text(MoleLocationHelper.getValue(MoleLocation.rightArm)),
+      value: MoleLocation.rightArm,
     ));
     locationList.add(new DropdownMenuItem(
-      child: new Text('Left chest'),
-      value: 2,
+      child: new Text(MoleLocationHelper.getValue(MoleLocation.leftChest)),
+      value: MoleLocation.leftChest,
     ));
     locationList.add(new DropdownMenuItem(
-      child: new Text('Right chest'),
-      value: 3,
+      child: new Text(MoleLocationHelper.getValue(MoleLocation.rightChest)),
+      value: MoleLocation.rightChest,
     ));
     locationList.add(new DropdownMenuItem(
-      child: new Text('stomach'),
-      value: 4,
+      child: new Text(MoleLocationHelper.getValue(MoleLocation.stomach)),
+      value: MoleLocation.stomach,
     ));
     locationList.add(new DropdownMenuItem(
-      child: new Text('Upper back'),
-      value: 5,
+      child: new Text(MoleLocationHelper.getValue(MoleLocation.upperBack)),
+      value: MoleLocation.upperBack,
     ));
     locationList.add(new DropdownMenuItem(
-      child: new Text('Lower back'),
-      value: 6,
+      child: new Text(MoleLocationHelper.getValue(MoleLocation.lowerBack)),
+      value: MoleLocation.lowerBack,
     ));
     locationList.add(new DropdownMenuItem(
-      child: new Text('Left leg'),
-      value: 7,
+      child: new Text(MoleLocationHelper.getValue(MoleLocation.leftLeg)),
+      value: MoleLocation.leftLeg,
     ));
     locationList.add(new DropdownMenuItem(
-      child: new Text('Right leg'),
-      value: 8,
+      child: new Text(MoleLocationHelper.getValue(MoleLocation.rightLeg)),
+      value: MoleLocation.rightLeg,
     ));
   }
 
   Widget build(BuildContext context) {
     loadLocationList();
+    _resolveRisk();
     return Scaffold(
       appBar: new AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -67,11 +91,8 @@ class DetailScreenState extends State<DetailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Center(
-                child: Image(
-                  image: AssetImage('assets/mole1.jpg'),
-                  width: 250.0,
-                ),
-              ),
+                  child: Image.file(File(widget.moleDetail.imagePath),
+                      fit: BoxFit.cover)),
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -89,6 +110,7 @@ class DetailScreenState extends State<DetailScreen> {
               ),
               TextField(
                 decoration: InputDecoration(hintText: 'Enter name'),
+                controller: myController,
               ),
               SizedBox(height: 20.0),
               Text(
@@ -99,7 +121,8 @@ class DetailScreenState extends State<DetailScreen> {
                 ),
               ),
               TextField(
-                decoration: InputDecoration(hintText: '01.01.2019'),
+                decoration: InputDecoration(
+                    hintText: widget.moleDetail.date.substring(0, 10)),
               ),
               SizedBox(height: 20.0),
               Text(
@@ -129,9 +152,9 @@ class DetailScreenState extends State<DetailScreen> {
                 ),
               ),
               Text(
-                'Potential Risk',
+                widget.moleDetail.riskStatus,
                 style: TextStyle(
-                  color: Colors.amberAccent[200],
+                  color: this.riskColor,
                   letterSpacing: 2.0,
                   fontSize: 20.0,
                 ),
@@ -143,8 +166,35 @@ class DetailScreenState extends State<DetailScreen> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save, color: Colors.grey),
         backgroundColor: Colors.white,
-        onPressed: () {},
+        onPressed: () {
+          Mole newMole = new Mole(uuid.v1(), myController.text,
+              MoleLocationHelper.getValue(_selectedLocation));
+          newMole.moleDetails = [];
+          newMole.moleDetails.add(widget.moleDetail);
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MoleHistory(mole: newMole)));
+        },
       ),
     );
+  }
+
+  void _resolveRisk() {
+    switch (widget.moleDetail.riskStatus) {
+      case 'Low risk':
+        this.riskColor = Colors.lightGreen;
+        break;
+      case 'Potential risk':
+        this.riskColor = Colors.amberAccent[200];
+        break;
+      case 'High risk':
+        this.riskColor = Colors.orange;
+        break;
+      case 'Very high risk':
+        this.riskColor = Colors.red;
+        break;
+    }
   }
 }
