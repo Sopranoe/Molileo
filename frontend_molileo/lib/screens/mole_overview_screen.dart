@@ -6,6 +6,7 @@ import 'package:frontend_molileo/models/mole.dart';
 import 'package:frontend_molileo/screens/mole_history_screen.dart';
 import 'package:frontend_molileo/mockdata.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../main.dart';
 
@@ -26,7 +27,7 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
     super.initState();
     if (storage.getItem('mole_list') != null) {
       print('get mole list');
-      this.moleList = this.storage.getItem('mole_list');
+      // this.moleList = this.storage.getItem('mole_list');
     }
   }
 
@@ -34,7 +35,7 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
   void dispose() {
     // Clean up the controller when the widget is disposed.
     print('save mole list');
-    this.storage.setItem('mole_list', moleList);
+    // this.storage.setItem('mole_list', moleList);
     super.dispose();
   }
 
@@ -102,5 +103,25 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
         context,
         MaterialPageRoute(
             builder: (context) => MoleHistory(mole: this.moleList[i])));
+  }
+
+  _read() async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/database.txt');
+      String text = await file.readAsString();
+      print(text);
+    } catch (e) {
+      print("Couldn't read file");
+    }
+  }
+
+  _save() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/database.txt');
+    final text = 'Hello World!';
+    // final text = this.moleList.toString();
+    await file.writeAsString(text);
+    print('saved ' + '${directory.path}/database.txt');
   }
 }
