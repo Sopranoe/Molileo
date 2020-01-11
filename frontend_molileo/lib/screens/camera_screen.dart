@@ -32,7 +32,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import '../previewscreen/preview_screen.dart';
+import 'preview_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   @override
@@ -199,9 +199,9 @@ class _CameraScreenState extends State {
   IconData _getCameraLensIcon(CameraLensDirection direction) {
     switch (direction) {
       case CameraLensDirection.back:
-        return Icons.camera_rear;
-      case CameraLensDirection.front:
         return Icons.camera_front;
+      case CameraLensDirection.front:
+        return Icons.camera_rear;
       case CameraLensDirection.external:
         return Icons.camera;
       default:
