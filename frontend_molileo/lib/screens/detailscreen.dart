@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_molileo/db/DatabaseHelper.dart';
 import 'package:frontend_molileo/models/mole-detail.dart';
 import 'package:frontend_molileo/models/mole-location.dart';
 import 'package:frontend_molileo/models/mole.dart';
@@ -20,6 +21,7 @@ class DetailScreen extends StatefulWidget {
 }
 
 class DetailScreenState extends State<DetailScreen> {
+  DatabaseHelper helper = DatabaseHelper();
   Color riskColor;
   final myController = TextEditingController();
   MoleLocation _selectedLocation;
@@ -167,11 +169,11 @@ class DetailScreenState extends State<DetailScreen> {
         child: Icon(Icons.save, color: Colors.grey),
         backgroundColor: Colors.white,
         onPressed: () {
-          Mole newMole = new Mole(uuid.v1(), myController.text,
+          Mole newMole = new Mole(uuid.v1(), myController.text, [],
               MoleLocationHelper.getValue(_selectedLocation));
-          newMole.moleDetails = [];
-          newMole.moleDetails.add(widget.moleDetail);
-
+          // newMole.moleDetails = [];
+          newMole.addMoleDetail(widget.moleDetail);
+          this._saveMole(newMole);
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -196,5 +198,10 @@ class DetailScreenState extends State<DetailScreen> {
         this.riskColor = Colors.red;
         break;
     }
+  }
+
+  void _saveMole(Mole mole) async {
+    print(this.helper);
+    this.helper.save(mole);
   }
 }
