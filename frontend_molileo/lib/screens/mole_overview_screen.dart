@@ -5,6 +5,7 @@ import 'package:frontend_molileo/db/DatabaseHelper.dart';
 import 'package:frontend_molileo/models/mole-detail.dart';
 import 'package:frontend_molileo/models/mole.dart';
 import 'package:frontend_molileo/screens/mole_history_screen.dart';
+import 'package:sqflite/sqlite_api.dart';
 
 import '../main.dart';
 
@@ -19,7 +20,7 @@ class MoleOverviewScreen extends StatefulWidget {
 
 class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
   DatabaseHelper helper = DatabaseHelper();
-  List<Mole> moleList = [];
+  List<Mole> moleList;
 
   void initState() {
     super.initState();
@@ -32,7 +33,10 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _getData();
+    if (moleList == null) {
+      moleList = List<Mole>();
+      _getData();
+    }
     return WillPopScope(
         onWillPop: () {
           Navigator.push(
@@ -82,7 +86,7 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
       this.moleList[i].moleDetails.add(widget.moleDetail);
       helper.updateMoleDetail(this.moleList[i].id, widget.moleDetail);
     }
-    this.moleList[i].moleDetails.add(widget.moleDetail);
+    // this.moleList[i].moleDetails.add(widget.moleDetail);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -93,5 +97,13 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
     print("get Data");
     this.moleList = await helper.getMoles();
     print(this.moleList.length);
+
+    helper.initDB().then((database) {
+      helper.getMoles().then((list) => {
+            setState(() {
+              this.moleList = list;
+            })
+          });
+    });
   }
 }

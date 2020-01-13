@@ -75,21 +75,25 @@ class DatabaseHelper {
   }
 
   Future<List<Mole>> getMoles() async {
-    var dbClient = await db;
-    List<Map> maps = await dbClient
-        .query(MOLE_TABLE, columns: [MOLE_ID, NAME, MOLE_LOCATION]);
-    List<Map> detailMaps = await dbClient
-        .query(MOLEDETAIL_TABLE, columns: [DATE, RISK_STATUS, IMAGE]);
     List<Mole> moleList = [];
-    List<MoleDetail> md = [];
-    if (maps.length > 0) {
-      for (Map map in maps) {
-        Mole mole = Mole.fromJson(map);
-        for (Map detail in detailMaps) {
-          mole.addMoleDetail(MoleDetail.fromJson(detail));
+
+    var dbClient = await db;
+    List<Map> moleMaps = await dbClient
+        .query(MOLE_TABLE, columns: [MOLE_ID, NAME, MOLE_LOCATION]);
+    List<Map> moleDetailMaps = List<Map>();
+
+    if (moleMaps.length > 0) {
+      for (Map mole in moleMaps) {
+        Mole newMole = Mole.fromJson(mole);
+
+        moleDetailMaps = await dbClient.query(MOLEDETAIL_TABLE,
+            columns: [DATE, RISK_STATUS, IMAGE],
+            where: '$MOLE_ID = ?',
+            whereArgs: [newMole.id]);
+        for (Map moleDetail in moleDetailMaps) {
+          newMole.addMoleDetail(MoleDetail.fromJson(moleDetail));
         }
-        // mole.setMoleDetails(md);
-        moleList.add(mole);
+        moleList.add(newMole);
       }
     }
     return moleList;
