@@ -1,16 +1,20 @@
 class MoleDetail {
-  final String date;
+  final String _date;
   // final DateTime date;
-  final String imagePath;
-  final String riskStatus;
+  final String _imagePath;
+  final String _riskStatus;
 
-  MoleDetail(this.date, this.imagePath, this.riskStatus);
+  MoleDetail(this._date, this._imagePath, this._riskStatus);
+
+  String get date => _date;
+  String get imagePath => _imagePath;
+  String get riskStatus => _riskStatus;
 
   MoleDetail.fromJson(Map<String, dynamic> json)
-      : date = json['date'],
-        imagePath = json['imagePath'],
-        riskStatus = json['riskStatus'];
+      : _date = json['date'],
+        _imagePath = json['imagePath'],
+        _riskStatus = json['riskStatus'];
 
   Map<String, dynamic> toJson() =>
-      {'date': date, 'imagePath': imagePath, 'riskStatus': riskStatus};
+      {'date': _date, 'imagePath': _imagePath, 'riskStatus': _riskStatus};
 }

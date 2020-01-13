@@ -23,10 +23,8 @@ class _MoleHistoryState extends State<MoleHistory> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MoleOverviewScreen(mole: widget.mole)));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => MoleOverviewScreen()));
         },
         child: Scaffold(
             appBar: new AppBar(
@@ -93,7 +91,4 @@ class _MoleHistoryState extends State<MoleHistory> {
       return Colors.red;
     }
   }
-  // route() {
-  //   Navigator.
-  // }
 }
