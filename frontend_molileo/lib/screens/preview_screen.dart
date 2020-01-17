@@ -31,10 +31,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:frontend_molileo/screens/result_screen.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:tflite/tflite.dart';
 
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
-
   PreviewImageScreen({this.imagePath});
 
   @override
@@ -42,8 +43,12 @@ class PreviewImageScreen extends StatefulWidget {
 }
 
 class _PreviewImageScreenState extends State<PreviewImageScreen> {
+  String res = "";
+  String recognitions = "";
+
   @override
   Widget build(BuildContext context) {
+    this.loadModel();
     return Scaffold(
       appBar: new AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -107,10 +112,36 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     );
   }
 
-  void _accept(context, String path) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ResultImageScreen(imagePath: path)));
+  void _accept(context, String path) async {
+    print('Ausgabe: ');
+    var recognitions = await Tflite.runModelOnImage(
+        path: widget.imagePath, // required
+        imageMean: 0.0, // defaults to 117.0
+        imageStd: 255.0, // defaults to 1.0
+        numResults: 2, // defaults to 5
+        threshold: 0.2, // defaults to 0.1
+        asynch: true // defaults to true
+        );
+
+    print(recognitions);
+    // console.log('Ausgabe: ' + recognitions);
+
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) => ResultImageScreen(imagePath: path)));
+    // }
+
+    await Tflite.close();
+  }
+
+  void loadModel() async {
+    this.res = await Tflite.loadModel(
+        model: "assets/predict_melanoma.tflite",
+        labels: "assets/labels.txt",
+        numThreads: 1 // defaults to 1
+        );
+
+    print(res);
   }
 }
