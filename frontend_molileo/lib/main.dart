@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_molileo/screens/information_screen.dart';
 import 'package:frontend_molileo/screens/result_screen.dart';
 import 'models/mole.dart';
 import 'screens/mole_overview_screen.dart';
@@ -116,7 +117,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.all(10.0),
                         textColor: Colors.white,
                         color: Colors.blue,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => InformationScreen()));
+                        },
                       ),
                     )
                   ],
