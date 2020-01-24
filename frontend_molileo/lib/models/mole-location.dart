@@ -38,4 +38,31 @@ class MoleLocationHelper {
         return "";
     }
   }
+
+  static MoleLocation toMoleLocation(String moleLocation) {
+    switch (moleLocation) {
+      case "Right arm":
+        return MoleLocation.rightArm;
+      case "Left arm":
+        return MoleLocation.leftArm;
+      case "Right chest":
+        return MoleLocation.rightChest;
+      case "Left chest":
+        return MoleLocation.leftChest;
+      case "Right leg":
+        return MoleLocation.rightLeg;
+      case "Left leg":
+        return MoleLocation.leftLeg;
+      case "Upper Back":
+        return MoleLocation.upperBack;
+      case "Lower Back":
+        return MoleLocation.lowerBack;
+      case "Stomach":
+        return MoleLocation.stomach;
+      case "face":
+        return MoleLocation.face;
+      default:
+        return null;
+    }
+  }
 }

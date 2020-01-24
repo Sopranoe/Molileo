@@ -30,6 +30,7 @@
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_molileo/view/AppBar.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'preview_screen.dart';
@@ -99,13 +100,7 @@ class _CameraScreenState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: const Text('Molileo',
-            style: TextStyle(color: Colors.black, fontSize: 25.0)),
-        centerTitle: true,
-        backgroundColor: Colors.grey[100],
-      ),
+      appBar: appBar('Molileo', 'snape your mole'),
       body: Container(
         padding: const EdgeInsets.all(10.0),
         margin: const EdgeInsets.all(10.0),

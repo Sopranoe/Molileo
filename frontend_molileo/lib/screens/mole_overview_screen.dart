@@ -5,7 +5,7 @@ import 'package:frontend_molileo/db/DatabaseHelper.dart';
 import 'package:frontend_molileo/models/mole-detail.dart';
 import 'package:frontend_molileo/models/mole.dart';
 import 'package:frontend_molileo/screens/mole_history_screen.dart';
-import 'package:sqflite/sqlite_api.dart';
+import 'package:frontend_molileo/view/AppBar.dart';
 
 import '../main.dart';
 
@@ -45,13 +45,7 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
                   builder: (context) => MyHomePage(title: 'Molileo')));
         },
         child: Scaffold(
-            appBar: new AppBar(
-              iconTheme: IconThemeData(color: Colors.black),
-              title: const Text('Molileo',
-                  style: TextStyle(color: Colors.black, fontSize: 25.0)),
-              centerTitle: true,
-              backgroundColor: Colors.grey[100],
-            ),
+            appBar: appBar('Molileo', _setSubtitle()),
             body: GridView.count(
               primary: false,
               padding: const EdgeInsets.all(20),
@@ -64,7 +58,7 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
                 return Center(
                     child: Column(
                   children: <Widget>[
-                    new InkResponse(
+                    InkResponse(
                         enableFeedback: true,
                         onTap: () => click(index),
                         child: Image.file(
@@ -105,5 +99,11 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
             })
           });
     });
+  }
+
+  _setSubtitle() {
+    return (widget.moleDetail != null)
+        ? 'Select mole that it should be added to'
+        : 'Overview';
   }
 }

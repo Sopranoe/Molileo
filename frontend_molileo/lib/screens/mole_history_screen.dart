@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:frontend_molileo/models/mole.dart';
+import 'package:frontend_molileo/view/AppBar.dart';
 
+import 'detailscreen.dart';
 import 'mole_overview_screen.dart';
 
 class MoleHistory extends StatefulWidget {
@@ -27,13 +29,7 @@ class _MoleHistoryState extends State<MoleHistory> {
               MaterialPageRoute(builder: (context) => MoleOverviewScreen()));
         },
         child: Scaffold(
-            appBar: new AppBar(
-              iconTheme: IconThemeData(color: Colors.black),
-              title: const Text('Molileo',
-                  style: TextStyle(color: Colors.black, fontSize: 25.0)),
-              centerTitle: true,
-              backgroundColor: Colors.grey[100],
-            ),
+            appBar: appBar('Molileo', widget.mole.name),
             body: GridView.count(
               primary: false,
               padding: const EdgeInsets.all(20),
@@ -46,9 +42,13 @@ class _MoleHistoryState extends State<MoleHistory> {
                 return Center(
                     child: Column(
                   children: <Widget>[
-                    Image.file(
-                      File(widget.mole.moleDetails[index].imagePath),
-                      fit: BoxFit.scaleDown,
+                    InkResponse(
+                      enableFeedback: true,
+                      onTap: () => _showInDetailview(index),
+                      child: Image.file(
+                        File(widget.mole.moleDetails[index].imagePath),
+                        fit: BoxFit.scaleDown,
+                      ),
                     ),
                     SizedBox(height: 1.0),
                     Row(
@@ -90,5 +90,21 @@ class _MoleHistoryState extends State<MoleHistory> {
     if (risk == 'Very high risk') {
       return Colors.red;
     }
+  }
+
+  _showInDetailview(i) {
+    print('_showInDetailview ' + i.toString());
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => DetailScreen(
+                  mole: widget.mole,
+                  moleDetail: widget.mole.moleDetails[i],
+                )),
+        (Route<dynamic> route) => false);
+
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => ));
   }
 }

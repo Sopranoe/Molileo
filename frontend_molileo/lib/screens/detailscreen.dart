@@ -6,16 +6,19 @@ import 'package:frontend_molileo/db/DatabaseHelper.dart';
 import 'package:frontend_molileo/models/mole-detail.dart';
 import 'package:frontend_molileo/models/mole-location.dart';
 import 'package:frontend_molileo/models/mole.dart';
-import 'package:frontend_molileo/models/risk-status.dart';
 import 'package:frontend_molileo/screens/mole_history_screen.dart';
+import 'package:frontend_molileo/helper/textHelper.dart';
+import 'package:frontend_molileo/view/AppBar.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = Uuid();
 
 class DetailScreen extends StatefulWidget {
+  final Mole mole;
   final MoleDetail moleDetail;
+  // final int index;
 
-  DetailScreen({this.moleDetail});
+  DetailScreen({this.moleDetail, this.mole});
 
   DetailScreenState createState() => new DetailScreenState();
 }
@@ -23,8 +26,10 @@ class DetailScreen extends StatefulWidget {
 class DetailScreenState extends State<DetailScreen> {
   DatabaseHelper helper = DatabaseHelper();
   Color riskColor;
+  String riskText;
   final myController = TextEditingController();
   MoleLocation _selectedLocation;
+  bool onCreate = false;
 
   @override
   void dispose() {
@@ -73,21 +78,20 @@ class DetailScreenState extends State<DetailScreen> {
       child: new Text(MoleLocationHelper.getValue(MoleLocation.rightLeg)),
       value: MoleLocation.rightLeg,
     ));
+
+    this._selectedLocation = widget.mole == null
+        ? this._selectedLocation
+        : MoleLocationHelper.toMoleLocation(widget.mole.moleLocation);
+    print(this._selectedLocation);
   }
 
   Widget build(BuildContext context) {
     loadLocationList();
     _resolveRisk();
     return Scaffold(
-      appBar: new AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: const Text('Molileo',
-            style: TextStyle(color: Colors.black, fontSize: 25.0)),
-        centerTitle: true,
-        backgroundColor: Colors.grey[100],
-      ),
+      appBar: appBar('Molileo', _setSubtitle()),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
+        padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 10.0),
         children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,14 +99,7 @@ class DetailScreenState extends State<DetailScreen> {
               Center(
                   child: Image.file(File(widget.moleDetail.imagePath),
                       fit: BoxFit.cover)),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: new Text('Create new mole',
-                      style: new TextStyle(fontSize: 25.0),
-                      textAlign: TextAlign.center),
-                ),
-              ),
+              SizedBox(height: 10.0),
               Text(
                 'NAME',
                 style: TextStyle(
@@ -111,7 +108,9 @@ class DetailScreenState extends State<DetailScreen> {
                 ),
               ),
               TextField(
-                decoration: InputDecoration(hintText: 'Enter name'),
+                decoration: InputDecoration(
+                    hintText:
+                        widget.mole == null ? 'Enter name' : widget.mole.name),
                 controller: myController,
               ),
               SizedBox(height: 20.0),
@@ -135,7 +134,7 @@ class DetailScreenState extends State<DetailScreen> {
                 ),
               ),
               DropdownButton(
-                hint: new Text('Select Location'),
+                hint: Text('Select Location'),
                 items: locationList,
                 value: _selectedLocation,
                 onChanged: (value) {
@@ -161,6 +160,15 @@ class DetailScreenState extends State<DetailScreen> {
                   fontSize: 20.0,
                 ),
               ),
+              SizedBox(height: 10.0),
+              Text(
+                this.riskText,
+                style: TextStyle(
+                  letterSpacing: 2.0,
+                  color: Colors.grey[500],
+                  fontSize: 10.0,
+                ),
+              ),
             ],
           ),
         ],
@@ -169,15 +177,10 @@ class DetailScreenState extends State<DetailScreen> {
         child: Icon(Icons.save, color: Colors.grey),
         backgroundColor: Colors.white,
         onPressed: () {
-          Mole newMole = new Mole(uuid.v1(), myController.text, [],
-              MoleLocationHelper.getValue(_selectedLocation));
-          // newMole.moleDetails = [];
-          newMole.addMoleDetail(widget.moleDetail);
-          this._saveMole(newMole);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MoleHistory(mole: newMole)));
+          this.onCreate = widget.mole == null ? true : false;
+          if (this.onCreate) {
+            creatNewMole();
+          }
         },
       ),
     );
@@ -187,21 +190,39 @@ class DetailScreenState extends State<DetailScreen> {
     switch (widget.moleDetail.riskStatus) {
       case 'Low risk':
         this.riskColor = Colors.lightGreen;
+        this.riskText = lowRiskText;
         break;
       case 'Potential risk':
         this.riskColor = Colors.amberAccent[200];
+        this.riskText = potentialRiskText;
         break;
       case 'High risk':
         this.riskColor = Colors.orange;
+        this.riskText = highRiskText;
         break;
       case 'Very high risk':
         this.riskColor = Colors.red;
+        this.riskText = veryHighRiskText;
         break;
     }
+  }
+
+  creatNewMole() {
+    Mole newMole = new Mole(uuid.v1(), myController.text, [],
+        MoleLocationHelper.getValue(_selectedLocation));
+    newMole.addMoleDetail(widget.moleDetail);
+    this._saveMole(newMole);
+
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => MoleHistory(mole: newMole)));
   }
 
   void _saveMole(Mole mole) async {
     print(this.helper);
     this.helper.save(mole);
+  }
+
+  _setSubtitle() {
+    return (widget.mole == null) ? 'Create new Mole' : widget.mole.name;
   }
 }
