@@ -29,10 +29,12 @@
  */
 
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:frontend_molileo/screens/result_screen.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:tflite/tflite.dart';
+import 'package:image/image.dart' as img;
 
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
@@ -43,12 +45,12 @@ class PreviewImageScreen extends StatefulWidget {
 }
 
 class _PreviewImageScreenState extends State<PreviewImageScreen> {
+  List _recognitions;
   String res = "";
   String recognitions = "";
 
   @override
   Widget build(BuildContext context) {
-    this.loadModel();
     return Scaffold(
       appBar: new AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -99,7 +101,8 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
                     ),
                     backgroundColor: Colors.grey[400],
                     onPressed: () {
-                      _accept(context, widget.imagePath);
+                      this.loadModel();
+                      // _accept(context, widget.imagePath);
                     },
                   ),
                 ),
@@ -113,27 +116,14 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
   }
 
   void _accept(context, String path) async {
-    print('Ausgabe: ');
-    var recognitions = await Tflite.runModelOnImage(
-        path: widget.imagePath, // required
-        imageMean: 0.0, // defaults to 117.0
-        imageStd: 255.0, // defaults to 1.0
-        numResults: 2, // defaults to 5
-        threshold: 0.2, // defaults to 0.1
-        asynch: true // defaults to true
-        );
-
-    print(recognitions);
     // console.log('Ausgabe: ' + recognitions);
 
-    //   Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //           builder: (context) => ResultImageScreen(imagePath: path)));
-    // }
-
-    await Tflite.close();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ResultImageScreen(imagePath: path)));
   }
+  // }
 
   void loadModel() async {
     this.res = await Tflite.loadModel(
@@ -142,6 +132,42 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
         numThreads: 1 // defaults to 1
         );
 
-    print(res);
+    File imgFile = new File(widget.imagePath);
+    await recognizeImageBinary(imgFile);
+
+    print('_recognitions');
+    print(_recognitions);
+
+    await Tflite.close();
+  }
+
+  Future recognizeImageBinary(File image) async {
+    var imageBytes = (await rootBundle.load(image.path)).buffer;
+    img.Image oriImage = img.decodeJpg(imageBytes.asUint8List());
+    img.Image resizedImage = img.copyResize(oriImage, 224, 224);
+    var recognitions = await Tflite.runModelOnBinary(
+        binary: imageToByteListFloat32(resizedImage, 224, 127.5, 127.5),
+        numResults: 6,
+        threshold: 0.05,
+        asynch: true);
+    setState(() {
+      _recognitions = recognitions;
+    });
+  }
+
+  Uint8List imageToByteListFloat32(
+      img.Image image, int inputSize, double mean, double std) {
+    var convertedBytes = Float32List(1 * inputSize * inputSize * 3);
+    var buffer = Float32List.view(convertedBytes.buffer);
+    int pixelIndex = 0;
+    for (var i = 0; i < inputSize; i++) {
+      for (var j = 0; j < inputSize; j++) {
+        var pixel = image.getPixel(j, i);
+        buffer[pixelIndex++] = (img.getRed(pixel) - mean) / std;
+        buffer[pixelIndex++] = (img.getGreen(pixel) - mean) / std;
+        buffer[pixelIndex++] = (img.getBlue(pixel) - mean) / std;
+      }
+    }
+    return convertedBytes.buffer.asUint8List();
   }
 }
