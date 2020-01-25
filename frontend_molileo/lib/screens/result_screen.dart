@@ -12,9 +12,10 @@ import 'mole_overview_screen.dart';
 
 class ResultImageScreen extends StatefulWidget {
   final String imagePath;
-  final List riskRecognitions;
+  //final List riskRecognitions;
+  final String risk;
 
-  ResultImageScreen({this.imagePath, this.riskRecognitions});
+  ResultImageScreen({this.imagePath, this.risk});
 
   @override
   _ResultImageScreenState createState() => _ResultImageScreenState();
@@ -24,7 +25,8 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
   String riskTitle;
   String riskText;
   Color riskColor;
-  RiskStatus risk;
+  String risk;
+  //double confidence = widget.riskRecognitions[0]['confidence'];
 
   void initState() {
     super.initState();
@@ -121,44 +123,28 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
   }
 
   void _resolveRisk() {
-    final _random = new Random();
-    int min = 1;
-    int max = 5;
-    switch (min + _random.nextInt(max - min)) {
-      case 1:
+
+    switch (widget.risk) {
+      case "low risk":
         this.riskColor = Colors.lightGreen;
         this.riskTitle = 'Low Risk';
         this.riskText =
             'Our analysis resulted in a potentially low risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
-        this.risk = RiskStatus.lowRisk;
-        break;
-      case 2:
-        this.riskColor = Colors.amberAccent[200];
-        this.riskTitle = 'Potential Risk';
-        this.riskText =
-            'Our analysis resulted in a potential risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
-        this.risk = RiskStatus.potentialRisk;
-        break;
-      case 3:
-        this.riskColor = Colors.orange;
+        this.risk = widget.risk;
+        break;   
+      case "high risk":
+        this.riskColor = Colors.red;
         this.riskTitle = 'High Risk';
         this.riskText =
             'Our analysis resulted in a potentially high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
-        this.risk = RiskStatus.highRisk;
-        break;
-      case 4:
-        this.riskColor = Colors.red;
-        this.riskTitle = 'Very high Risk';
-        this.riskText =
-            'Our analysis resulted in a potentially very high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
-        this.risk = RiskStatus.veryHighRisk;
+        this.risk = widget.risk;
         break;
     }
   }
 
   void choiceActions(String choice) {
     MoleDetail newMoleDetail = new MoleDetail(new DateTime.now().toString(),
-        widget.imagePath, RiskStatusHelper.getValue(this.risk));
+        widget.imagePath, this.risk);
 
     if (choice == MenuConstants.CreateMole) {
       Navigator.push(

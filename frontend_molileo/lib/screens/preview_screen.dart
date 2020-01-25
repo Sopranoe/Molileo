@@ -118,6 +118,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     print('Ausgabe: ');
     recognitions = await tf.runModelOnImage(context, widget.imagePath);
     print(recognitions);
+    String risk = recognitions[0]['label'];
 
     tf.close();
 
@@ -125,7 +126,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
         context,
         MaterialPageRoute(
             builder: (context) => ResultImageScreen(
-                imagePath: path, riskRecognitions: recognitions)));
+                imagePath: path, risk: risk)));
   }
 
   void loadModel() async {
