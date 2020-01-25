@@ -31,8 +31,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_molileo/view/AppBar.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'preview_screen.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -216,12 +214,14 @@ class _CameraScreenState extends State {
     // catch the error.
     try {
       // Attempt to take a picture and log where it's been saved
-      final path = join(
-        // In this example, store the picture in the temp directory. Find
-        // the temp directory using the `path_provider` plugin.
-        (await getTemporaryDirectory()).path,
-        '${DateTime.now()}.png',
-      );
+      final path =
+          '/data/user/0/com.example.frontend_molileo/files/${DateTime.now()}.png';
+      // join(
+      // In this example, store the picture in the temp directory. Find
+      // the temp directory using the `path_provider` plugin.
+      //   (await getTemporaryDirectory()).path,
+      //   '${DateTime.now()}.png',
+      // // );
       print(path);
       await controller.takePicture(path);
 

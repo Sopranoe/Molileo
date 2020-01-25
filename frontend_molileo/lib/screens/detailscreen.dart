@@ -35,6 +35,8 @@ class DetailScreenState extends State<DetailScreen> {
   void dispose() {
     // Clean up the controller when the widget is disposed.
     myController.dispose();
+    helper.close();
+
     super.dispose();
   }
 
@@ -124,6 +126,7 @@ class DetailScreenState extends State<DetailScreen> {
               TextField(
                 decoration: InputDecoration(
                     hintText: widget.moleDetail.date.substring(0, 10)),
+                enabled: widget.mole == null ? true : false,
               ),
               SizedBox(height: 20.0),
               Text(
@@ -180,6 +183,8 @@ class DetailScreenState extends State<DetailScreen> {
           this.onCreate = widget.mole == null ? true : false;
           if (this.onCreate) {
             creatNewMole();
+          } else {
+            updateMole();
           }
         },
       ),
@@ -215,6 +220,17 @@ class DetailScreenState extends State<DetailScreen> {
 
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => MoleHistory(mole: newMole)));
+  }
+
+  updateMole() {
+    // if (myController.text != null || myController.text.length > 0) {
+    //   widget.mole.name = myController.text;
+    //   helper.updateMole(widget.mole.id, widget.mole);
+    // }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MoleHistory(mole: widget.mole)));
   }
 
   void _saveMole(Mole mole) async {

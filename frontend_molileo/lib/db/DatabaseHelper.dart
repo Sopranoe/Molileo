@@ -118,6 +118,16 @@ class DatabaseHelper {
         .delete(MOLE_TABLE, where: '$MOLE_ID = ?', whereArgs: [id]);
   }
 
+  Future<int> updateMole(String id, Mole mole) async {
+    var dbClient = await db;
+    await dbClient.update(
+      MOLE_TABLE,
+      {NAME: mole.name, MOLE_LOCATION: mole.moleLocation},
+      where: '$MOLE_ID',
+      whereArgs: [mole.id],
+    );
+  }
+
   Future close() async {
     var dbClient = await db;
     dbClient.close();

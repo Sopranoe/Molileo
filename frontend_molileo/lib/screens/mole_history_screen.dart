@@ -5,7 +5,6 @@ import 'package:frontend_molileo/models/mole.dart';
 import 'package:frontend_molileo/view/AppBar.dart';
 
 import 'detailscreen.dart';
-import 'mole_overview_screen.dart';
 
 class MoleHistory extends StatefulWidget {
   final Mole mole;
@@ -23,58 +22,54 @@ class _MoleHistoryState extends State<MoleHistory> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MoleOverviewScreen()));
-        },
-        child: Scaffold(
-            appBar: appBar('Molileo', widget.mole.name),
-            body: GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 8.0 / 12.0,
-              crossAxisCount: 3,
-              // Generate 100 widgets that display their index in the List.
-              children: List.generate(widget.mole.moleDetails.length, (index) {
-                return Center(
-                    child: Column(
+    return Scaffold(
+        appBar:
+            appBarWithAction('Molileo', widget.mole.name, context, 'overview'),
+        body: GridView.count(
+          primary: false,
+          padding: const EdgeInsets.all(20),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 8.0 / 12.0,
+          crossAxisCount: 3,
+          // Generate 100 widgets that display their index in the List.
+          children: List.generate(widget.mole.moleDetails.length, (index) {
+            return Center(
+                child: Column(
+              children: <Widget>[
+                InkResponse(
+                  enableFeedback: true,
+                  onTap: () => _showInDetailview(index),
+                  child: Image.file(
+                    File(widget.mole.moleDetails[index].imagePath),
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+                SizedBox(height: 1.0),
+                Row(
                   children: <Widget>[
-                    InkResponse(
-                      enableFeedback: true,
-                      onTap: () => _showInDetailview(index),
-                      child: Image.file(
-                        File(widget.mole.moleDetails[index].imagePath),
-                        fit: BoxFit.scaleDown,
+                    SizedBox(
+                      width: 15.0,
+                      height: 15.0,
+                      child: FloatingActionButton(
+                        heroTag: index.toString(),
+                        backgroundColor: this.getRiskColor(
+                            widget.mole.moleDetails[index].riskStatus),
+                        onPressed: () {},
                       ),
                     ),
-                    SizedBox(height: 1.0),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 15.0,
-                          height: 15.0,
-                          child: FloatingActionButton(
-                            heroTag: index.toString(),
-                            backgroundColor: this.getRiskColor(
-                                widget.mole.moleDetails[index].riskStatus),
-                            onPressed: () {},
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          widget.mole.moleDetails[index].date.substring(0, 10) +
-                              ', $index',
-                          style: TextStyle(fontSize: 10.0, color: Colors.black),
-                        ),
-                      ],
-                    )
+                    SizedBox(width: 5),
+                    Text(
+                      widget.mole.moleDetails[index].date.substring(0, 10) +
+                          ', $index',
+                      style: TextStyle(fontSize: 10.0, color: Colors.black),
+                    ),
                   ],
-                ));
-              }),
-            )));
+                )
+              ],
+            ));
+          }),
+        ));
   }
 
   getRiskColor(risk) {
@@ -101,10 +96,5 @@ class _MoleHistoryState extends State<MoleHistory> {
                   moleDetail: widget.mole.moleDetails[i],
                 )),
         (Route<dynamic> route) => false);
-
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => ));
   }
 }

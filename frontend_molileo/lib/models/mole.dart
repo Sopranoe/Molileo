@@ -2,7 +2,7 @@ import 'package:frontend_molileo/models/mole-detail.dart';
 
 class Mole {
   final String _id;
-  final String _name;
+  String _name;
   List<MoleDetail> _moleDetails = [];
   final String _moleLocation;
 
@@ -12,6 +12,8 @@ class Mole {
   String get name => _name;
   List<MoleDetail> get moleDetails => _moleDetails;
   String get moleLocation => _moleLocation;
+
+  set name(newName) => _name = newName;
 
   Mole.fromJson(Map<String, dynamic> json)
       : _id = json['moleID'],
