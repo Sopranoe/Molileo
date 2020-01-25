@@ -12,8 +12,9 @@ import 'mole_overview_screen.dart';
 
 class ResultImageScreen extends StatefulWidget {
   final String imagePath;
+  final List riskRecognitions;
 
-  ResultImageScreen({this.imagePath});
+  ResultImageScreen({this.imagePath, this.riskRecognitions});
 
   @override
   _ResultImageScreenState createState() => _ResultImageScreenState();
