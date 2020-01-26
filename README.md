@@ -1,4 +1,4 @@
-# Hautkrebs Diagnose App
+# Molileo
 
 *Diese Applikation soll dem Benutzer helfen das Hautkrebsrisiko auffälliger Hautstellen und Leberflecke einzuschätzen.*
 
