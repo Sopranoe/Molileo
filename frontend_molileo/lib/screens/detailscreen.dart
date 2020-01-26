@@ -114,7 +114,8 @@ class DetailScreenState extends State<DetailScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MoleHistory(mole: widget.mole)))
+                          builder: (context) =>
+                              MoleHistory(mole: widget.mole))),
                 }),
         centerTitle: true,
         backgroundColor: Colors.grey[100],
@@ -202,19 +203,7 @@ class DetailScreenState extends State<DetailScreen> {
           ),
         ],
       ),
-      floatingActionButton: null,
-      // FloatingActionButton(
-      //   child: Icon(Icons.save, color: Colors.grey),
-      //   backgroundColor: Colors.white,
-      //   onPressed: () {
-      //     this.onCreate = widget.mole == null ? true : false;
-      //     if (this.onCreate) {
-      //       creatNewMole();
-      //     } else {
-      //       updateMole();
-      //     }
-      //   },
-      // ),
+      floatingActionButton: setFloatingActionButton(),
     );
   }
 
@@ -239,6 +228,19 @@ class DetailScreenState extends State<DetailScreen> {
     }
   }
 
+  setFloatingActionButton() {
+    return widget.mole != null
+        ? null
+        : FloatingActionButton(
+            child: Icon(Icons.save, color: Colors.grey),
+            backgroundColor: Colors.white,
+            onPressed: () {
+              this.onCreate = widget.mole == null ? true : false;
+              creatNewMole();
+            },
+          );
+  }
+
   setDropdown() {
     return widget.mole != null
         ? null
@@ -257,17 +259,6 @@ class DetailScreenState extends State<DetailScreen> {
 
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => MoleHistory(mole: newMole)));
-  }
-
-  updateMole() {
-    // if (myController.text != null || myController.text.length > 0) {
-    //   widget.mole.name = myController.text;
-    //   helper.updateMole(widget.mole.id, widget.mole);
-    // }
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MoleHistory(mole: widget.mole)));
   }
 
   void _saveMole(Mole mole) async {

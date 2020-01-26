@@ -89,12 +89,10 @@ class _MoleHistoryState extends State<MoleHistory> {
 
   _showInDetailview(i) {
     print('_showInDetailview ' + i.toString());
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (context) => DetailScreen(
-                  mole: widget.mole,
-                  moleDetail: widget.mole.moleDetails[i],
-                )),
-        (Route<dynamic> route) => false);
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => DetailScreen(
+              mole: widget.mole,
+              moleDetail: widget.mole.moleDetails[i],
+            )));
   }
 }
