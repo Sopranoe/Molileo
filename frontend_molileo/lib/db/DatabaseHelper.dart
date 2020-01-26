@@ -34,14 +34,6 @@ class DatabaseHelper {
     return _dbCrud;
   }
 
-  Future<Database> get db async {
-    if (null != _db) {
-      return _db;
-    }
-    _db = await initDB();
-    return _db;
-  }
-
   initDB() async {
     io.Directory molesDir = await getApplicationDocumentsDirectory();
     String path = join(molesDir.path, DB_NAME);
@@ -55,6 +47,14 @@ class DatabaseHelper {
     await db.execute(
         'CREATE TABLE $MOLEDETAIL_TABLE($ID INTEGER PRIMARY KEY AUTOINCREMENT, $DATE TEXT, '
         '$RISK_STATUS TEXT, $IMAGE TEXT, $MOLE_ID TEXT, CONSTRAINT fk_$MOLE_TABLE FOREIGN KEY ($MOLE_ID) REFERENCES $MOLE_TABLE($MOLE_ID))');
+  }
+
+  Future<Database> get db async {
+    if (null != _db) {
+      return _db;
+    }
+    _db = await initDB();
+    return _db;
   }
 
   Future<int> save(Mole mole) async {
