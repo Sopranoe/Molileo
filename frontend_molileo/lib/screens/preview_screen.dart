@@ -30,13 +30,11 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:frontend_molileo/models/TensorflowLite.dart';
 import 'package:frontend_molileo/screens/result_screen.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:tflite/tflite.dart';
 
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
+
   PreviewImageScreen({this.imagePath});
 
   @override
@@ -44,13 +42,8 @@ class PreviewImageScreen extends StatefulWidget {
 }
 
 class _PreviewImageScreenState extends State<PreviewImageScreen> {
-  String res = "";
-  List recognitions;
-  TensorflowLite tf;
-
   @override
   Widget build(BuildContext context) {
-    this.loadModel();
     return Scaffold(
       appBar: new AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -114,23 +107,10 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     );
   }
 
-  void _accept(context, String path) async {
-    recognitions = await tf.runModelOnImage(context, widget.imagePath);
-    print(recognitions);
-    String risk = recognitions[0]['label'];
-
-    tf.close();
-
+  void _accept(context, String path) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ResultImageScreen(
-                imagePath: path, risk: risk)));
-  }
-
-  void loadModel() async {
-    tf = new TensorflowLite(
-        'assets/predict_melanoma.tflite', 'assets/labels.txt');
-    tf.init();
+            builder: (context) => ResultImageScreen(imagePath: path)));
   }
 }
