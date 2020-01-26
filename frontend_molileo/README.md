@@ -1,14 +1,31 @@
 # frontend_molileo
 
-This project is a Flutter application. Blow you will find everything you need to get started and run this app on a device or Emulator.
+This project is a Flutter application. Bеlow you will find everything you need to get started and run this app on a device or Emulator.
 
 ## Getting Started 
 
-For help getting started with Flutter, view:
-[Flutter Installation](https://flutter.dev/docs/get-started/install), a guide to setup your flutter environment.
-[Flutter Documentation](https://flutter.dev/docs), which offers tutorials, samples, guidance on mobile development, and a full API reference.
+### Prerequisites
+IDE of your choice (popular ones are [androidstudio](https://developer.android.com/studio/), [IntelliJ Idea](https://www.jetbrains.com/idea/download/), and [Visual Studio Code](https://code.visualstudio.com/)), [Flutter SDK](https://flutter.dev/docs/get-started/install/), depending on OS some extra actions are required, before being able to execute `flutter doctor` (export environment variables and installing additional driver kits)
 
-After cloning and setting up your environment, you are good to go!
+### Set up your Android device
+To prepare to run and test your Flutter app on an Android device, you’ll need an Android device running Android 4.1 (API level 16) or higher.
+
+Enable Developer options on your device by opening `> Settings > About Phone > and press 7 times on the Build Number` then toggle and USB debugging on. 
+Install the [Google USB Driver](https://developer.android.com/studio/run/win-usb) (Windows-only).
+
+### Set up the Android emulator
+To prepare to run and test your Flutter app on the Android emulator, follow these steps:
+
+Enable [VM acceleration](https://developer.android.com/studio/run/emulator-acceleration) on your machine.
+Launch `Android Studio > Tools > Android > AVD Manager and select Create Virtual Device`
+Define desired device and select Next.
+Select a corresponding system image for your system architecture (x86 or x64) and emultethe Android version you want.
+Under `Emulated Performance, select Hardware - GLES 2.0` to enable hardware acceleration.
+Verify the AVD configuration is correct, and select Finish.
+
+Now your device is to be found under `Android Virtual Device Manager`. After having installed all dependencies (see below), choose your device and select `Run`.
+
+After cloning this project locally, you are good to go!
 
  ### Install dependencies from the terminal
 
