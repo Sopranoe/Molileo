@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_molileo/screens/mole_history_screen.dart';
 import 'package:frontend_molileo/screens/mole_overview_screen.dart';
 
 import '../main.dart';
@@ -27,7 +28,7 @@ AppBar appBar(String title, String subtitle) {
 }
 
 AppBar appBarWithAction(
-    String title, String subtitle, BuildContext context, String navigateTo) {
+    String title, String subtitle, BuildContext context, dynamic navigateTo) {
   return new AppBar(
     iconTheme: IconThemeData(color: Colors.black),
     title: Column(
@@ -55,7 +56,7 @@ AppBar appBarWithAction(
                       MaterialPageRoute(
                           builder: (context) => MyHomePage(title: 'Molileo')))
                 }
-              else
+              else if (navigateTo == 'overview')
                 {
                   Navigator.push(
                       context,

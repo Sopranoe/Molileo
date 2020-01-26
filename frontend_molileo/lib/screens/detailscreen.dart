@@ -91,7 +91,34 @@ class DetailScreenState extends State<DetailScreen> {
     loadLocationList();
     _resolveRisk();
     return Scaffold(
-      appBar: appBar('Molileo', _setSubtitle()),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Column(
+          children: <Widget>[
+            Text(
+              'Molileo',
+              style: TextStyle(color: Colors.black, fontSize: 25.0),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              _setSubtitle(),
+              style: TextStyle(color: Colors.black38, fontSize: 12.0),
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+        automaticallyImplyLeading: true,
+        leading: BackButton(
+            color: Colors.black,
+            onPressed: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MoleHistory(mole: widget.mole)))
+                }),
+        centerTitle: true,
+        backgroundColor: Colors.grey[100],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 10.0),
         children: <Widget>[
@@ -113,6 +140,7 @@ class DetailScreenState extends State<DetailScreen> {
                 decoration: InputDecoration(
                     hintText:
                         widget.mole == null ? 'Enter name' : widget.mole.name),
+                enabled: widget.mole != null ? false : true,
                 controller: myController,
               ),
               SizedBox(height: 20.0),
@@ -126,7 +154,7 @@ class DetailScreenState extends State<DetailScreen> {
               TextField(
                 decoration: InputDecoration(
                     hintText: widget.moleDetail.date.substring(0, 10)),
-                enabled: widget.mole == null ? true : false,
+                enabled: widget.mole != null ? false : true,
               ),
               SizedBox(height: 20.0),
               Text(
@@ -138,13 +166,11 @@ class DetailScreenState extends State<DetailScreen> {
               ),
               DropdownButton(
                 hint: Text('Select Location'),
+                disabledHint:
+                    Text(MoleLocationHelper.getValue(_selectedLocation)),
                 items: locationList,
                 value: _selectedLocation,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedLocation = value;
-                  });
-                },
+                onChanged: setDropdown(),
                 isExpanded: true,
               ),
               SizedBox(height: 20.0),
@@ -176,18 +202,19 @@ class DetailScreenState extends State<DetailScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save, color: Colors.grey),
-        backgroundColor: Colors.white,
-        onPressed: () {
-          this.onCreate = widget.mole == null ? true : false;
-          if (this.onCreate) {
-            creatNewMole();
-          } else {
-            updateMole();
-          }
-        },
-      ),
+      floatingActionButton: null,
+      // FloatingActionButton(
+      //   child: Icon(Icons.save, color: Colors.grey),
+      //   backgroundColor: Colors.white,
+      //   onPressed: () {
+      //     this.onCreate = widget.mole == null ? true : false;
+      //     if (this.onCreate) {
+      //       creatNewMole();
+      //     } else {
+      //       updateMole();
+      //     }
+      //   },
+      // ),
     );
   }
 
@@ -210,6 +237,16 @@ class DetailScreenState extends State<DetailScreen> {
         this.riskText = veryHighRiskText;
         break;
     }
+  }
+
+  setDropdown() {
+    return widget.mole != null
+        ? null
+        : (value) {
+            setState(() {
+              _selectedLocation = value;
+            });
+          };
   }
 
   creatNewMole() {

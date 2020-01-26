@@ -98,7 +98,7 @@ class _CameraScreenState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar('Molileo', 'snape your mole'),
+      appBar: appBar('Molileo', 'Take a picture of your mole'),
       body: Container(
         padding: const EdgeInsets.all(10.0),
         margin: const EdgeInsets.all(10.0),
@@ -183,10 +183,14 @@ class _CameraScreenState extends State {
         child: FlatButton.icon(
             onPressed: _onSwitchCamera,
             icon: Icon(_getCameraLensIcon(lensDirection)),
-            label: Text(
-                "${lensDirection.toString().substring(lensDirection.toString().indexOf('.') + 1)}")),
+            label: Text(_cameraDirectionText(
+                "${lensDirection.toString().substring(lensDirection.toString().indexOf('.') + 1)}"))),
       ),
     );
+  }
+
+  _cameraDirectionText(String usedDirection) {
+    return usedDirection == 'back' ? 'front' : 'back';
   }
 
   IconData _getCameraLensIcon(CameraLensDirection direction) {

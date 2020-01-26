@@ -7,8 +7,6 @@ import 'package:frontend_molileo/models/mole.dart';
 import 'package:frontend_molileo/screens/mole_history_screen.dart';
 import 'package:frontend_molileo/view/AppBar.dart';
 
-import '../main.dart';
-
 class MoleOverviewScreen extends StatefulWidget {
   final MoleDetail moleDetail;
 
@@ -47,7 +45,6 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
           mainAxisSpacing: 10,
           childAspectRatio: 8.0 / 12.0,
           crossAxisCount: 3,
-          // Generate 100 widgets that display their index in the List.
           children: List.generate(this.moleList.length, (index) {
             return Center(
                 child: Column(
@@ -84,9 +81,10 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
   }
 
   _getData() async {
-    print("get Data");
-    this.moleList = await helper.getMoles();
-    print(this.moleList.length);
+    helper = DatabaseHelper();
+    // print("get Data");
+    // this.moleList = await helper.getMoles();
+    // print(this.moleList.length);
 
     helper.initDB().then((database) {
       helper.getMoles().then((list) => {
