@@ -5,7 +5,6 @@ import 'package:frontend_molileo/db/DatabaseHelper.dart';
 import 'package:frontend_molileo/models/mole-detail.dart';
 import 'package:frontend_molileo/models/mole.dart';
 import 'package:frontend_molileo/screens/mole_history_screen.dart';
-import 'package:sqflite/sqlite_api.dart';
 
 import '../main.dart';
 
