@@ -121,7 +121,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
       ),
     );
   }
-
+  
   void _resolveRisk() {
 
     switch (widget.risk) {

@@ -1,2 +1,2 @@
 high risk
-low-risk    
+low risk
