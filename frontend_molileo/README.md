@@ -69,32 +69,32 @@ MoleDetail moleDetail = new MoleDetail(String date, String imagePath, String ris
  }
  ```
 
-The following methode initializes the database and returns it.
+The following method initializes the database and returns it.
  ```dart
 Future<Database> get db async {
  }
  ```
-The following methode closes the database.
+The following method closes the database.
  ```dart
  Future close() async {
  }
  ```
-This methode saves a mole into the database.
+This method saves a mole into the database.
   ```dart
  Future<int> save(Mole mole) async {
  }
  ```
-This methode returns all the moles as List.
+This method returns all the moles as List.
   ```dart
  Future<List<Mole>> getMoles() async {
  }
  ```
-This methode adds a new MoleDetail into the database.
+This method adds a new MoleDetail into the database.
   ```dart
  Future<int> updateMoleDetail(String id, MoleDetail moleDetail) async {
  }
  ```
-This methode deletes a mole from the database.
+This method deletes a mole from the database.
   ```dart
  Future<int> deleteMole(String id) async {
  }
