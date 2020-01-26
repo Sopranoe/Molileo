@@ -4,7 +4,7 @@ This project is a Flutter application. Blow you will find everything you need to
 
 ## Getting Started 
 
-For help getting started with Flutter, view our:
+For help getting started with Flutter, view:
 [Flutter Installation](https://flutter.dev/docs/get-started/install), a guide to setup your flutter environment.
 [Flutter Documentation](https://flutter.dev/docs), which offers tutorials, samples, guidance on mobile development, and a full API reference.
 
