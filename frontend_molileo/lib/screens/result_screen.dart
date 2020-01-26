@@ -12,8 +12,10 @@ import 'mole_overview_screen.dart';
 
 class ResultImageScreen extends StatefulWidget {
   final String imagePath;
+  //final List riskRecognitions;
+  final String risk;
 
-  ResultImageScreen({this.imagePath});
+  ResultImageScreen({this.imagePath, this.risk});
 
   @override
   _ResultImageScreenState createState() => _ResultImageScreenState();
@@ -114,33 +116,19 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
   }
 
   void _resolveRisk() {
-    final _random = new Random();
-    int min = 1;
-    int max = 5;
-    switch (min + _random.nextInt(max - min)) {
-      case 1:
+
+    switch (widget.risk) {
+      case "low risk":
         this.riskColor = Colors.lightGreen;
         this.riskTitle = 'Low Risk';
         this.riskText = lowRiskText;
         this.risk = RiskStatus.lowRisk;
         break;
-      case 2:
-        this.riskColor = Colors.amberAccent[200];
-        this.riskTitle = 'Potential Risk';
-        this.riskText = potentialRiskText;
-        this.risk = RiskStatus.potentialRisk;
-        break;
-      case 3:
-        this.riskColor = Colors.orange;
+      case "high risk":
+        this.riskColor = Colors.red;
         this.riskTitle = 'High Risk';
         this.riskText = highRiskText;
         this.risk = RiskStatus.highRisk;
-        break;
-      case 4:
-        this.riskColor = Colors.red;
-        this.riskTitle = 'Very high Risk';
-        this.riskText = veryHighRiskText;
-        this.risk = RiskStatus.veryHighRisk;
         break;
     }
   }
