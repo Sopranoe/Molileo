@@ -25,7 +25,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
   String riskTitle;
   String riskText;
   Color riskColor;
-  String risk;
+  RiskStatus risk;
   //double confidence = widget.riskRecognitions[0]['confidence'];
 
   void initState() {
@@ -130,21 +130,21 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
         this.riskTitle = 'Low Risk';
         this.riskText =
             'Our analysis resulted in a potentially low risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
-        this.risk = widget.risk;
+        this.risk = RiskStatus.lowRisk;
         break;   
       case "high risk":
         this.riskColor = Colors.red;
         this.riskTitle = 'High Risk';
         this.riskText =
             'Our analysis resulted in a potentially high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
-        this.risk = widget.risk;
+        this.risk = RiskStatus.highRisk;
         break;
     }
   }
 
   void choiceActions(String choice) {
     MoleDetail newMoleDetail = new MoleDetail(new DateTime.now().toString(),
-        widget.imagePath, this.risk);
+        widget.imagePath, RiskStatusHelper.getValue(this.risk));
 
     if (choice == MenuConstants.CreateMole) {
       Navigator.push(

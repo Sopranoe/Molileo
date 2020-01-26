@@ -115,7 +115,6 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
   }
 
   void _accept(context, String path) async {
-    print('Ausgabe: ');
     recognitions = await tf.runModelOnImage(context, widget.imagePath);
     print(recognitions);
     String risk = recognitions[0]['label'];
@@ -133,7 +132,5 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     tf = new TensorflowLite(
         'assets/predict_melanoma.tflite', 'assets/labels.txt');
     tf.init();
-
-    print('Model loaded');
   }
 }
