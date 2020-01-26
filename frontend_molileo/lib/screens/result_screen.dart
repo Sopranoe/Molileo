@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:frontend_molileo/models/mole-detail.dart';
-import 'package:frontend_molileo/models/mole-location.dart';
-import 'package:frontend_molileo/models/mole.dart';
 import 'package:frontend_molileo/screens/detailscreen.dart';
 import 'dart:math';
 import 'package:frontend_molileo/models/risk-status.dart';
 import 'package:frontend_molileo/screens/menuConstants.dart';
+import 'package:frontend_molileo/view/AppBar.dart' as prefix0;
 
+import '../helper/textHelper.dart';
 import 'mole_overview_screen.dart';
 
 class ResultImageScreen extends StatefulWidget {
@@ -33,13 +33,7 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: const Text('Molileo',
-            style: TextStyle(color: Colors.black, fontSize: 25.0)),
-        centerTitle: true,
-        backgroundColor: Colors.grey[100],
-      ),
+      appBar: prefix0.appBar('Molileo', 'Analytics result'),
       body: Container(
         padding: const EdgeInsets.all(30.0),
         child: Column(
@@ -127,29 +121,25 @@ class _ResultImageScreenState extends State<ResultImageScreen> {
       case 1:
         this.riskColor = Colors.lightGreen;
         this.riskTitle = 'Low Risk';
-        this.riskText =
-            'Our analysis resulted in a potentially low risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        this.riskText = lowRiskText;
         this.risk = RiskStatus.lowRisk;
         break;
       case 2:
         this.riskColor = Colors.amberAccent[200];
         this.riskTitle = 'Potential Risk';
-        this.riskText =
-            'Our analysis resulted in a potential risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        this.riskText = potentialRiskText;
         this.risk = RiskStatus.potentialRisk;
         break;
       case 3:
         this.riskColor = Colors.orange;
         this.riskTitle = 'High Risk';
-        this.riskText =
-            'Our analysis resulted in a potentially high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        this.riskText = highRiskText;
         this.risk = RiskStatus.highRisk;
         break;
       case 4:
         this.riskColor = Colors.red;
         this.riskTitle = 'Very high Risk';
-        this.riskText =
-            'Our analysis resulted in a potentially very high risk of skin cancer from this mole. To keep an eye on this mole for further changes you can add it to the history overview and track its changes';
+        this.riskText = veryHighRiskText;
         this.risk = RiskStatus.veryHighRisk;
         break;
     }

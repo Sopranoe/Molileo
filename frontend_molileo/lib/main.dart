@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_molileo/screens/information_screen.dart';
-import 'package:frontend_molileo/screens/result_screen.dart';
-import 'models/mole.dart';
 import 'screens/mole_overview_screen.dart';
 import 'screens/camera_screen.dart';
 

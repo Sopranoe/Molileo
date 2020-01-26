@@ -5,8 +5,7 @@ import 'package:frontend_molileo/db/DatabaseHelper.dart';
 import 'package:frontend_molileo/models/mole-detail.dart';
 import 'package:frontend_molileo/models/mole.dart';
 import 'package:frontend_molileo/screens/mole_history_screen.dart';
-
-import '../main.dart';
+import 'package:frontend_molileo/view/AppBar.dart';
 
 class MoleOverviewScreen extends StatefulWidget {
   final MoleDetail moleDetail;
@@ -28,6 +27,7 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
   @override
   void dispose() {
     super.dispose();
+    helper.close();
   }
 
   @override
@@ -36,48 +36,36 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
       moleList = List<Mole>();
       _getData();
     }
-    return WillPopScope(
-        onWillPop: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MyHomePage(title: 'Molileo')));
-        },
-        child: Scaffold(
-            appBar: new AppBar(
-              iconTheme: IconThemeData(color: Colors.black),
-              title: const Text('Molileo',
-                  style: TextStyle(color: Colors.black, fontSize: 25.0)),
-              centerTitle: true,
-              backgroundColor: Colors.grey[100],
-            ),
-            body: GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 8.0 / 12.0,
-              crossAxisCount: 3,
-              // Generate 100 widgets that display their index in the List.
-              children: List.generate(this.moleList.length, (index) {
-                return Center(
-                    child: Column(
-                  children: <Widget>[
-                    new InkResponse(
-                        enableFeedback: true,
-                        onTap: () => click(index),
-                        child: Image.file(
-                          File(this.moleList[index].moleDetails[0].imagePath),
-                          fit: BoxFit.scaleDown,
-                        )),
-                    Text(
-                      this.moleList[index].name,
-                      style: TextStyle(fontSize: 11.0, color: Colors.black),
-                    ),
-                  ],
-                ));
-              }),
-            )));
+    return Scaffold(
+        appBar: appBarWithAction('Molileo', _setSubtitle(), context, 'home'),
+        body: GridView.count(
+          primary: false,
+          padding: const EdgeInsets.all(20),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 8.0 / 12.0,
+          crossAxisCount: 3,
+          children: List.generate(this.moleList.length, (index) {
+            return Center(
+                child: Column(
+              children: <Widget>[
+                InkResponse(
+                    enableFeedback: true,
+                    onTap: () => click(index),
+                    child: Image.file(
+                      File(this.moleList[index].moleDetails[0].imagePath),
+                      fit: BoxFit.scaleDown,
+                    )),
+                Text(
+                  this.moleList[index].name,
+                  style: TextStyle(fontSize: 11.0, color: Colors.black),
+                ),
+              ],
+            ));
+          }),
+        )
+        // )
+        );
   }
 
   click(i) {
@@ -93,9 +81,10 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
   }
 
   _getData() async {
-    print("get Data");
-    this.moleList = await helper.getMoles();
-    print(this.moleList.length);
+    helper = DatabaseHelper();
+    // print("get Data");
+    // this.moleList = await helper.getMoles();
+    // print(this.moleList.length);
 
     helper.initDB().then((database) {
       helper.getMoles().then((list) => {
@@ -104,5 +93,11 @@ class _MoleOverviewScreenState extends State<MoleOverviewScreen> {
             })
           });
     });
+  }
+
+  _setSubtitle() {
+    return (widget.moleDetail != null)
+        ? 'Select mole that it should be added to'
+        : 'Overview';
   }
 }

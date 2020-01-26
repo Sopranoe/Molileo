@@ -30,8 +30,7 @@
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:frontend_molileo/view/AppBar.dart';
 import 'preview_screen.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -99,13 +98,7 @@ class _CameraScreenState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: const Text('Molileo',
-            style: TextStyle(color: Colors.black, fontSize: 25.0)),
-        centerTitle: true,
-        backgroundColor: Colors.grey[100],
-      ),
+      appBar: appBar('Molileo', 'Take a picture of your mole'),
       body: Container(
         padding: const EdgeInsets.all(10.0),
         margin: const EdgeInsets.all(10.0),
@@ -190,10 +183,14 @@ class _CameraScreenState extends State {
         child: FlatButton.icon(
             onPressed: _onSwitchCamera,
             icon: Icon(_getCameraLensIcon(lensDirection)),
-            label: Text(
-                "${lensDirection.toString().substring(lensDirection.toString().indexOf('.') + 1)}")),
+            label: Text(_cameraDirectionText(
+                "${lensDirection.toString().substring(lensDirection.toString().indexOf('.') + 1)}"))),
       ),
     );
+  }
+
+  _cameraDirectionText(String usedDirection) {
+    return usedDirection == 'back' ? 'front' : 'back';
   }
 
   IconData _getCameraLensIcon(CameraLensDirection direction) {
@@ -221,12 +218,14 @@ class _CameraScreenState extends State {
     // catch the error.
     try {
       // Attempt to take a picture and log where it's been saved
-      final path = join(
-        // In this example, store the picture in the temp directory. Find
-        // the temp directory using the `path_provider` plugin.
-        (await getTemporaryDirectory()).path,
-        '${DateTime.now()}.png',
-      );
+      final path =
+          '/data/user/0/com.example.frontend_molileo/files/${DateTime.now()}.png';
+      // join(
+      // In this example, store the picture in the temp directory. Find
+      // the temp directory using the `path_provider` plugin.
+      //   (await getTemporaryDirectory()).path,
+      //   '${DateTime.now()}.png',
+      // // );
       print(path);
       await controller.takePicture(path);
 

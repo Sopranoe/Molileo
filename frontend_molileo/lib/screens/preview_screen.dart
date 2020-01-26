@@ -31,6 +31,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:frontend_molileo/screens/result_screen.dart';
+import 'package:frontend_molileo/view/AppBar.dart' as prefix0;
 
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
@@ -45,13 +46,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: const Text('Molileo',
-            style: TextStyle(color: Colors.black, fontSize: 25.0)),
-        centerTitle: true,
-        backgroundColor: Colors.grey[100],
-      ),
+      appBar: prefix0.appBar('Molileo', 'Use this Picture?'),
       body: Container(
         padding: const EdgeInsets.all(10.0),
         margin: const EdgeInsets.all(10.0),
