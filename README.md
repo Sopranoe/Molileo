@@ -40,15 +40,6 @@
 * Verbände für Berufsgruppen mit erhöhtem Risiko
 * Berufsverband der Deutschen Dermatologen (BVDD)
 
-## Marktrecherche
-### Android
-* [SkinVision](https://play.google.com/store/apps/details?id=com.rubytribe.skinvision.ac&hl=de)
-
-### iOS
-* [SkinVision](https://apps.apple.com/de/app/skinvision-hautkrebscheck/id545293136)
-
-## Alleinstellungsmerkmal
-
 ## Rechtliche Berücksichtigungen
 
 * Medizinproduktegesetz
@@ -72,12 +63,10 @@
     * Begrenzung
     * Color
     * Durchmesser
-    * Erhabenheit   
+    * Erhabenheit/Evolution  
     * "Außerdem sind Farbveränderungen (F), Größenzunahme (G), Blutungen (Hämorrhagien: H) und Juckreiz (J) verdächtige Zeichen, die eine Abklärung beim Hautarzt oder in einer Hautklinik notwendig machen." [[3]]
     * "ugly duckling sign" [[3]]
-
-## Offene Fragen
-
+    
 ## Algorithmen
 
 * [Dermatologist-level classification of skin cancer with deep neural networks](https://cs.stanford.edu/people/esteva/nature/)
