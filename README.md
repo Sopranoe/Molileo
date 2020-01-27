@@ -8,7 +8,7 @@
 # Molileo
 
 *Diese Applikation soll dem Benutzer helfen das Hautkrebsrisiko auffälliger Hautstellen und Leberflecke einzuschätzen.*
-Die aktuelle APK ist unter [APK]( https://github.com/Sopranoe/Molileo/blob/master/frontend_molileo/app.apk) zu finden.
+Die aktuelle APK ist unter [Molileo App]( https://github.com/Sopranoe/Molileo/blob/master/frontend_molileo/app.apk) zu finden.
 
 ## Betroffene
 
