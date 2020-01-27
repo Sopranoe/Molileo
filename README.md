@@ -1,4 +1,11 @@
-# Hautkrebs Diagnose App
+| Github Alias                                         | Name         |
+| ---------------------------------------------------- | ------------ |
+| [@MariamaB](https://github.com/MariamaB)             | Miriam L.    |
+| [@veronikaba](https://github.com/veronikaba)         | Veronika B.  |
+| [@Sopranoe](https://github.com/Sopranoe)             | Alexander H. |
+| [@veselinodjov](https://github.com/veselinodjov)     | Veselin O.   |
+
+# Molileo
 
 *Diese Applikation soll dem Benutzer helfen das Hautkrebsrisiko auffälliger Hautstellen und Leberflecke einzuschätzen.*
 
@@ -40,15 +47,6 @@
 * Verbände für Berufsgruppen mit erhöhtem Risiko
 * Berufsverband der Deutschen Dermatologen (BVDD)
 
-## Marktrecherche
-### Android
-* [SkinVision](https://play.google.com/store/apps/details?id=com.rubytribe.skinvision.ac&hl=de)
-
-### iOS
-* [SkinVision](https://apps.apple.com/de/app/skinvision-hautkrebscheck/id545293136)
-
-## Alleinstellungsmerkmal
-
 ## Rechtliche Berücksichtigungen
 
 * Medizinproduktegesetz
@@ -72,12 +70,10 @@
     * Begrenzung
     * Color
     * Durchmesser
-    * Erhabenheit   
+    * Erhabenheit/Evolution  
     * "Außerdem sind Farbveränderungen (F), Größenzunahme (G), Blutungen (Hämorrhagien: H) und Juckreiz (J) verdächtige Zeichen, die eine Abklärung beim Hautarzt oder in einer Hautklinik notwendig machen." [[3]]
     * "ugly duckling sign" [[3]]
-
-## Offene Fragen
-
+    
 ## Algorithmen
 
 * [Dermatologist-level classification of skin cancer with deep neural networks](https://cs.stanford.edu/people/esteva/nature/)
@@ -92,3 +88,8 @@
 [2]: https://www.enzyklopaedie-dermatologie.de/dermatologie/abcd-regel-214 "Altmeyers Enzyklopädie: ABCD-Regel"
 [3]: https://www.krebsinformationsdienst.de/tumorarten/hautkrebs/frueherkennung.php "DKFZ: Hautkrebs-Früherkennung"
 [4]: https://www.awmf.org/leitlinien/detail/ll/032-024OL.html "AWMF: Leitlinien Melanom"
+
+1: https://www.dguv.de/de/mediencenter/pm/pressearchiv/2016/quartal_3/details_3_131586.jsp  
+2: https://www.enzyklopaedie-dermatologie.de/dermatologie/abcd-regel-214  
+3: https://www.krebsinformationsdienst.de/tumorarten/hautkrebs/frueherkennung.php  
+4: https://www.awmf.org/leitlinien/detail/ll/032-024OL.html  
