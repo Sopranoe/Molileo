@@ -10,6 +10,7 @@
 *Diese Applikation soll dem Benutzer helfen das Hautkrebsrisiko auffälliger Hautstellen und Leberflecke einzuschätzen.*
 Die aktuelle APK ist unter [Molileo App](https://drive.google.com/file/d/1SaVTYNyEw-ao57G_L_3rgl4D7WnL2FfJ/view?usp=sharing) zu finden.
 
+ [Git Link zur APK](https://github.com/Sopranoe/Molileo/blob/master/frontend_molileo/app.apk)
 ## Betroffene
 
 * Volkskrankheit (Fünfthäufigster Krebs in Deutschland, 20.000 Neuerkrankungen jährlich)
