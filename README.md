@@ -1,3 +1,10 @@
+| Github Alias                                         | Name         |
+| ---------------------------------------------------- | ------------ |
+| [@MariamaB](https://github.com/MariamaB)             | Miriam L.    |
+| [@veronikaba](https://github.com/veronikaba)         | Veronika B.  |
+| [@Sopranoe](https://github.com/Sopranoe)             | Alexander H. |
+| [@veselinodjov](https://github.com/veselinodjov)     | Veselin O.   |
+
 # Molileo
 
 *Diese Applikation soll dem Benutzer helfen das Hautkrebsrisiko auffälliger Hautstellen und Leberflecke einzuschätzen.*
