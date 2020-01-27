@@ -92,3 +92,8 @@
 [2]: https://www.enzyklopaedie-dermatologie.de/dermatologie/abcd-regel-214 "Altmeyers Enzyklopädie: ABCD-Regel"
 [3]: https://www.krebsinformationsdienst.de/tumorarten/hautkrebs/frueherkennung.php "DKFZ: Hautkrebs-Früherkennung"
 [4]: https://www.awmf.org/leitlinien/detail/ll/032-024OL.html "AWMF: Leitlinien Melanom"
+
+1: https://www.dguv.de/de/mediencenter/pm/pressearchiv/2016/quartal_3/details_3_131586.jsp  
+2: https://www.enzyklopaedie-dermatologie.de/dermatologie/abcd-regel-214  
+3: https://www.krebsinformationsdienst.de/tumorarten/hautkrebs/frueherkennung.php  
+4: https://www.awmf.org/leitlinien/detail/ll/032-024OL.html  
